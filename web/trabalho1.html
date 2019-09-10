@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script> -->
+
+
+<html lang="en">
+
+
+
+<head>
+
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Hugo França - Geração de Malhas 2019</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/shop-item.css" rel="stylesheet">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Geração de Malhas 2019</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="trabalho1.html">Trabalho 1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trabalho2.html">Trabalho 2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">....</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trabalho3.html">Trabalho N</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trabalhoFinal.html">Trabalho Final</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-lg-3">
+        <h1 class="my-4">Trabalho 1</h1>
+        <div class="list-group">
+          <a href="#marching" class="list-group-item active">1. Marching Tetrahedra</a>
+          <a href="#vetoresnormais" class="list-group-item">2. Vetores normais</a>
+          <a href="#conclusoes" class="list-group-item">3. Conclusões</a>
+          <a href="#codigofonte" class="list-group-item">4. Código-Fonte</a>
+        </div>
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9">
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <h1 class="card-title text-center">Trabalho 1</h1>
+            <h2 class='text-center'>Triangulação de uma superfície implícita pelo algoritmo Marching Tetrahedra</h2>
+            <p class="card-text">
+              Aluno: Hugo Leonardo França <br>
+              Professores: Afonso Paiva e Luis Gustavo Nonato
+            </p>
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div id='marching' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>1. Marching Tetrahedra com suavização de vértices</h3></b>
+          </div>
+          <div class="card-body">
+
+
+            <p>Dada uma função \(F: \mathbb{R}^3 \rightarrow \mathbb{R}\), o conjunto de pontos \(\textbf{x} \in \mathbb{R}^3\) tais que \(F(\textbf{x}) = 0\) é uma superfície implícita. Neste trabalho foi implementado um método em Matlab para, a partir da função \(F\), criar uma triangulação desta superfície pelo algoritmo Marching Tetrahedra.</p>
+            <hr>
+            <b><h4>1.1 Torus</b></h4>
+            <p> $$
+                  F(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4R^2(x^2 + y^2)
+                $$
+            </p>
+            <a href="imagens/t1/torus-semsuav.png"> 
+              <img class='img_superficies' src="imagens/t1/torus-semsuav.png" alt="Torus sem suavização">
+            </a>
+            <a href="imagens/t1/torus-comsuav.png"> 
+              <img class='img_superficies' src="imagens/t1/torus-comsuav.png"  alt="Torus com suavização">
+            </a>
+            <a href="imagens/t1/gif-torus.gif"> 
+              <img class='gif_superficies' src="imagens/t1/gif-torus.gif"  alt="Animação Torus">
+            </a>
+            <hr>
+
+
+
+            <b><h4>1.2 Cálice</b></h4>
+            <p> $$
+                  F(x, y, z) = x^2 + y^2 - log(z + 3.2)^2 - 0.02
+                $$
+            </p>
+            <a href="imagens/t1/calice-semsuav.png"> 
+              <img class='img_superficies' src="imagens/t1/calice-semsuav.png" alt="Cálice sem suavização">
+            </a>
+            <a href="imagens/t1/calice-comsuav.png"> 
+              <img class='img_superficies' src="imagens/t1/calice-comsuav.png"  alt="Cálice com suavização">
+            </a>
+            <a href="imagens/t1/gif-calice.gif"> 
+              <img class='gif_superficies' src="imagens/t1/gif-calice.gif"  alt="Animação Cálice">
+            </a>
+            <hr>
+
+
+
+            <b><h4>1.3 Triplo-Torus</b></h4>
+            <p> $$
+                  F(x, y, z) = F_1(x, y, z)\cdot F_2(x, y, z)\cdot F_3(x, y, z) - r,
+                $$
+              em que
+              $$ F_1(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4*R*R*(x^2 + y^2), $$
+              $$ F_2(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4*R*R*(x^2 + z^2), $$
+              $$ F_3(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4*R*R*(y^2 + z^2). $$
+            </p>
+            <a href="imagens/t1/triple-semsuav.png"> 
+              <img class='img_superficies' src="imagens/t1/triple-semsuav.png" alt="Torus Triplo sem suavização">
+            </a>
+            <a href="imagens/t1/triple-comsuav.png"> 
+              <img class='img_superficies' src="imagens/t1/triple-comsuav.png"  alt="Torus Triplo com suavização">
+            </a>
+            <a href="imagens/t1/gif-triple.gif"> 
+              <img class='gif_superficies' src="imagens/t1/gif-triple.gif"  alt="Animação Torus Triplo">
+            </a>
+            <hr>
+
+
+
+            <b><h4>1.4 Torus-Cruzados</b></h4>
+            <p> 
+              Esta função possui, além de contas algébricas, alguns operadores  condicionais. Desta forma, ela será apresentada diretamente como um código Matlab. <a href="inter-torus.html"> Acesse o código desta função clicando aqui. </a>
+            </p>
+            <a href="imagens/t1/interlocked-semsuav.png"> 
+              <img class='img_superficies' src="imagens/t1/interlocked-semsuav.png" alt="Torus Cruzados sem suavização">
+            </a>
+            <a href="imagens/t1/interlocked-comsuav.png"> 
+              <img class='img_superficies' src="imagens/t1/interlocked-comsuav.png"  alt="Torus Cruzados com suavização">
+            </a>
+            <a href="imagens/t1/gif-interlocked.gif"> 
+              <img class='gif_superficies' src="imagens/t1/gif-interlocked.gif"  alt="Animação Torus Cruzados">
+            </a>
+            <hr>
+
+
+
+            <b><h4>1.5 Gota em Queda</b></h4>
+            Dado um parâmetro \(t \), esta superfície é definida pela função
+            <p> $$
+                  F(x, y, z) = F_1(x, y, z)\cdot F_2(x, y, z)-1000,
+                $$
+                em que
+                $$ F_1(x,y , z) = z-\frac{6(1-\cos(\sqrt{x^2+y^2}-2t\pi))}{\sqrt{x^2+y^2+4}}, $$
+				$$ F_2(x, y, z) = 2(x^2+y^2)+(z-40\sin((t+0.19)\pi)+1)^2-10. $$
+            </p>
+            Ao variar o valor do parâmetro \(t\), o formato desta superfície é alterado de forma parecida com a queda de uma gota. Nas imagens abaixo a qualidade da superfície é apresentada para \(t=0\) e, em seguida, é feita uma animação variando o valor de \(t\).
+            <a href="imagens/t1/gota-semsuav.png"> 
+              <img class='img_superficies' src="imagens/t1/gota-semsuav.png" alt="Gota sem suavização">
+            </a>
+            <a href="imagens/t1/gota-comsuav.png"> 
+              <img class='img_superficies' src="imagens/t1/gota-comsuav.png"  alt="Gota com suavização">
+            </a>
+            <a href="imagens/t1/gif-gota.gif"> 
+              <img class='gif_superficies' src="imagens/t1/gif-gota.gif"  alt="Animação Gota">
+            </a>
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div id='vetoresnormais' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>2. Cálculo de vetores normais</h3></b>
+          </div>
+          <div class="card-body">
+            <p>
+            	Dada uma superfície definida já de forma explícita por seus vértices e faces, neste trabalho também foi implementado um método para calcular o vetor normal a esta superfície em algum ponto. Nas imagens abaixo são novamente plotadas as superfícies dos exemplos anteriores, calculadas pelo algoritmo Marching Tetrahedra, juntamente com os vetores normais. 
+            </p>
+            <p>
+            	O algoritmo Marching Tetrahedra e o cálculo das normais foram feitos de modo que os vetores sempre apontam no sentido do valor positivo da função \(F(x, y, z)\).
+        	</p>
+
+        	<a href="imagens/t1/torus-normais.png"> 
+              <img class='img_superficies' src="imagens/t1/torus-normais.png"  alt="Animação Gota">
+            </a>
+            <a href="imagens/t1/calice-normais.png"> 
+              <img class='gif_superficies' src="imagens/t1/calice-normais.png"  alt="Animação Gota">
+            </a>
+            <a href="imagens/t1/tripletorus-normais.png"> 
+              <img class='img_superficies' src="imagens/t1/tripletorus-normais.png"  alt="Animação Gota">
+            </a>
+            <a href="imagens/t1/interlockedtorus-normais.png"> 
+              <img class='img_superficies' src="imagens/t1/interlockedtorus-normais.png"  alt="Animação Gota">
+            </a>
+            <a href="imagens/t1/drop-normais.png"> 
+              <img class='img_superficies' src="imagens/t1/drop-normais.png"  alt="Animação Gota">
+            </a>
+          </div>
+        </div>
+
+
+        <div id='conclusoes' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>3. Conclusões</h3></b>
+          </div>
+          <div class="card-body">
+          	<p> Os resultados mostraram que realmente o algoritmo Marching Tetrahedra é capaz de representar visualmente muito bem uma superfície implícita. </p>
+
+          	<p> O algoritmo de suavização de vértices também mostrou resultados muito positivos, pois foi possível verificar, através dos histogramas apresentados, que a qualidade a malha foi melhorada. </p>
+          </div>
+        </div>
+
+
+        <div id='codigofonte' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>4. Código-Fonte</h3></b>
+          </div>
+          <div class="card-body">
+            <p>
+              O código-fonte pode ser acessado <a href="https://github.com/hugo-franca/GeracaoDeMalhas-2019/tree/master/Trabalho1"> clicando aqui.</a>
+            </p>
+
+            <p>
+              Para rodar os exemplos apresentados aqui, basta rodar o arquivo <b>main.m</b> no matlab. Logo nas primeiras linhas do arquivo é possível escolher qual dos exemplos deseja rodar.
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+
+
+
+  </div>
+  <!-- /.container -->
+
+  <!-- <br> -->
+  <!-- <br> -->
+  <!-- Footer -->
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark "> -->
+    <!-- <div class="container"> -->
+      <!-- <p class="m-0 text-center text-white">Hugo França, 2019</p> -->
+    <!-- </div> -->
+    <!-- /.container -->
+  <!-- </nav> -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
