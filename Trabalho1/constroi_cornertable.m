@@ -23,7 +23,7 @@ function [V_corners, C] = constroi_cornertable(V, F)
 	% Percorrendo cada face
 	for i=1:n_faces
 
-		textprogressbar( 100*i/n_faces );
+		textprogressbar( 50*i/n_faces );
 
 		% Armazenando a face e vertices em variaveis separadas, soh pra ficar mais facil de entender
 		face = F(i, :);
@@ -35,6 +35,7 @@ function [V_corners, C] = constroi_cornertable(V, F)
 		corner1.tri = i;
 		corner1.vert = v1;
 		corner1.prox = i_corner+1;
+		% O corner anterior eh o prox do prox, entao nao precisa armazenar ele
 
 		corner2.tri = i;
 		corner2.vert = v2;
@@ -55,6 +56,42 @@ function [V_corners, C] = constroi_cornertable(V, F)
 		V_corners{v3}(end+1) = i_corner+2;
 
 		i_corner = i_corner + 3;
+		
+	end
+
+
+
+	% Percorrendo cada um dos corners para encontrar qual o corner oposto a ele
+	qtdCorners = length(C);
+	for i = 1:qtdCorners
+		textprogressbar( 50 + (50*i/qtdCorners) );
+
+		corner = C{i};
+		i_corner_prox = corner.prox;
+		i_corner_ant = C{corner.prox}.prox;
+
+		vertice_ant = C{i_corner_ant}.vert;
+
+		% Corners do vertice prox
+		corners_prox_vert = V_corners{C{i_corner_prox}.vert};
+		for i_corner2 = corners_prox_vert
+
+			corner2 = C{i_corner2};
+			corner2_prox = C{corner2.prox};
+			corner2_ant = C{corner2_prox.prox};
+
+			if( i_corner2==i_corner_prox )
+				continue;
+			end
+
+			if( corner2_prox.vert==vertice_ant )
+				corner_oposto = corner2_prox.prox;
+				C{i}.oposto = corner_oposto;
+			elseif( corner2_ant.vert==vertice_ant )
+				corner_oposto = corner2.prox;
+				C{i}.oposto = corner_oposto;
+			end
+		end
 		
 	end
 
