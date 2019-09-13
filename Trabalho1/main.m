@@ -16,7 +16,7 @@ nome_exemplo = 'interlocked-torus';
 N = 50;
 
 % Flag para plotar as normais junto com as superficies ou nao
-flag_plotar_normais = false;
+flag_plotar_normais = true;
 
 
 
@@ -46,6 +46,8 @@ V2 = suavizacao_vertices(V, F, V_corners, C, normais_antes);
 razoes_ruim = calcula_razoes_aspecto(V, F);
 razoes = calcula_razoes_aspecto(V2, F);
 
+
+
 % ==============
 % Abaixo desta linha sao apenas plots e coisas de visualizacao
 % Nao tem mais nenhum algoritmo do trabalho
@@ -57,7 +59,7 @@ hist_edges = [0:0.1:1];
 h1 = histogram(razoes_ruim, hist_edges, 'Normalization', 'probability', 'Orientation', 'horizontal');
 h1 = max(h1.Values);
 set(grafico, 'Units', 'Normalized', 'Position', [0.8, 0.1, 0.15, 0.8]);
-title('Qualidade', 'FontSize', 15);
+title('Qualidade', 'FontSize', 20);
 xl_1 = gca;
 grafico = subplot(1, 2, 1);
 plot_objeto(V, F);
@@ -66,13 +68,13 @@ if( flag_plotar_normais )
 	quiver3(V(:, 1), V(:, 2), V(:, 3), normais_antes(:, 1), normais_antes(:, 2), normais_antes(:, 3), 'color', [1 0 0]);
 end
 set(grafico, 'Units', 'Normalized', 'Position', [0.05, 0.1, 0.7, 0.8]);
-title('Superficie SEM suavizacao de vertices', 'FontSize', 15);
+title('Superficie SEM suavizacao de vertices', 'FontSize', 20);
 fig1 = gcf;
 
 
 
 figure;
-% Plotando a superficie COM SUAVIZACAO e o seu histograma de razao de aspectos dos triangulos
+% % Plotando a superficie COM SUAVIZACAO e o seu histograma de razao de aspectos dos triangulos
 grafico = subplot(1, 2, 2);
 h2 = histogram(razoes, hist_edges, 'Normalization', 'probability', 'Orientation', 'horizontal');
 limite_hist = max([h1 max(h2.Values)]);
@@ -80,7 +82,7 @@ limite_hist = 1.1*limite_hist;
 xlim([0  limite_hist]);
 xlim(xl_1, [0 limite_hist]);
 set(grafico, 'Units', 'Normalized', 'Position', [0.8, 0.1, 0.15, 0.8]);
-title('Qualidade', 'FontSize', 15);
+title('Qualidade', 'FontSize', 20);
 
 grafico = subplot(1, 2, 1);
 plot_objeto(V2, F);
@@ -89,7 +91,7 @@ if( flag_plotar_normais )
 	quiver3(V2(:, 1), V2(:, 2), V2(:, 3), normais_depois(:, 1), normais_depois(:, 2), normais_depois(:, 3), 'color', [1 0 0]);
 end
 set(grafico, 'Units', 'Normalized', 'Position', [0.05, 0.1, 0.7, 0.8]);
-title('Superficie COM suavizacao de vertices', 'FontSize', 15);
+title('Superficie COM suavizacao de vertices', 'FontSize', 20);
 
 % saveas(fig1, [nome_exemplo '-semsuav.png']);
 % saveas(gcf, [nome_exemplo '-comsuav.png']);

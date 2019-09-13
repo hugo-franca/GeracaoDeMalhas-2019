@@ -1,4 +1,4 @@
-function [norms_verts, norms_faces] = calcula_normais(V, F, V_C, C)
+function [norms_verts, norms_faces] = calcula_normais_vertices(V, F, V_C, C)
 
 	n_vertices = size(V, 1);
 

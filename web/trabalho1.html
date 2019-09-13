@@ -67,10 +67,11 @@
         <div class='sticky-top'>
           <h1 class="my-4">Trabalho 1</h1>
           <div class="list-group">
-            <a href="#marching" class="list-group-item">1. Marching Tetrahedra</a>
-            <a href="#vetoresnormais" class="list-group-item">2. Vetores normais</a>
-            <a href="#conclusoes" class="list-group-item">3. Conclusões</a>
-            <a href="#codigofonte" class="list-group-item">4. Código-Fonte</a>
+            <a href="#cornertable" class="list-group-item">1. Corner table</a>
+            <a href="#marching" class="list-group-item">2. Marching Tetrahedra</a>
+            <a href="#vetoresnormais" class="list-group-item">3. Vetores normais</a>
+            <a href="#conclusoes" class="list-group-item">4. Conclusões</a>
+            <a href="#codigofonte" class="list-group-item">5. Código-Fonte</a>
           </div>
         </div>
       </div>
@@ -90,19 +91,64 @@
         </div>
         <!-- /.card -->
 
+        <div id='cornertable' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>1. Construção da Corner Table</h3></b>
+          </div>
+          <div class="card-body">
+            <p>
+              No primeiro item deste trabalho, foi implementada uma função Matlab que cria uma corner table a partir de uma malha fornecida no formato shared vertex. Essa função está definida no arquivo <b>constroi_cornertable.m</b>. 
+            </p>
+
+            <p>
+              A função recebe como parâmetros:
+              <ul>
+                <li>V: vértices da malha,</li>
+                <li>F: faces da malha.</li>
+              </ul>
+            </p>
+            <p>
+              Ela retorna os parâmetros:
+              <ul>
+                <li>V_corners: lista com os corners de cada um dos vértices da malha,</li>
+                <li>C: corner table (cada item desta lista corresponde a um corner).</li>
+              </ul>
+            </p>
+
+            Abaixo é mostrada uma malha lida de um arquivo no formato <b>obj</b>. Junto com a malha, apresenta-se também o anel de um vértice específico que foi calculado através da corner table desta malha. Para reproduzir este teste, basta executar o arquivo <b>main_normais_obj.m</b>.
+            <a href="imagens/t1/gif-torus.gif"> 
+              <img class='img_superficies' src="imagens/t1/bunny_anel1.png"  alt="Bunny anel">
+            </a>
+          </div>
+        </div>
+
         <div id='marching' class="card card-outline-secondary my-4">
           <div class="card-header">
-            <b><h3>1. Marching Tetrahedra com suavização de vértices</h3></b>
+            <b><h3>2. Marching Tetrahedra com suavização de vértices</h3></b>
           </div>
           <div class="card-body">
 
 
-            <p>Dada uma função \(F: \mathbb{R}^3 \rightarrow \mathbb{R}\), o conjunto de pontos \(\textbf{x} \in \mathbb{R}^3\) tais que \(F(\textbf{x}) = 0\) é uma superfície implícita. Neste trabalho foi implementado um método em Matlab para, a partir da função \(F\), criar uma triangulação desta superfície pelo algoritmo Marching Tetrahedra.</p>
+            <p>Dada uma função \(F: \mathbb{R}^3 \rightarrow \mathbb{R}\), o conjunto de pontos \(\textbf{x} \in \mathbb{R}^3\) tais que \(F(\textbf{x}) = 0\) é uma superfície implícita. Neste trabalho foi implementado um método em Matlab para, a partir da função \(F\), criar uma triangulação desta superfície pelo algoritmo Marching Tetrahedra. Este método está definido no arquivo <b>marching_tetrahedra.m</b></p>
+
+            <p> 
+              A suavizãção de vértices foi feita através do algoritmo apresentado em aula (Botsch e Kobbelt, 2004), e é realizada pelo método Matlab definido no arquivo <b>suavizacao_vertices.m</b>. Este algoritmo de suavização utiliza os vetores normais à superfície nos vértices. O cálculo destes vetores é comentado no próximo item deste relatório.
+            </p>
+
+            <p>
+            Abaixo são mostrados os resultados obtidos pelo algoritmo para algumas funções $F$ escolhidas como exemplos. Cada imagem apresenta a malha de triângulos construída pelo algoritmo Marching Tetrahedra, bem como um histograma normalizado das razões de aspecto das faces na malha. Em cada exemplo é apresentado uma imagem antes do algoritmo de suavização e outra imagem após o algoritmo.
+            </p>
+
+            <p>
+              Clique em qualquer uma das imagens para ampliá-la.
+            </p>
+
             <hr>
-            <b><h4>1.1 Torus</b></h4>
+            <b><h4>2.1 Torus</b></h4>
             <p> $$
-                  F(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4R^2(x^2 + y^2)
+                  F(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4R^2(x^2 + y^2),
                 $$
+                com \(R=40\) e \(a=15\).
             </p>
             <a href="imagens/t1/torus-semsuav.png"> 
               <img class='img_superficies' src="imagens/t1/torus-semsuav.png" alt="Torus sem suavização">
@@ -117,7 +163,7 @@
 
 
 
-            <b><h4>1.2 Cálice</b></h4>
+            <b><h4>2.2 Cálice</b></h4>
             <p> $$
                   F(x, y, z) = x^2 + y^2 - log(z + 3.2)^2 - 0.02
                 $$
@@ -135,14 +181,15 @@
 
 
 
-            <b><h4>1.3 Triplo-Torus</b></h4>
+            <b><h4>2.3 Triplo-Torus</b></h4>
             <p> $$
                   F(x, y, z) = F_1(x, y, z)\cdot F_2(x, y, z)\cdot F_3(x, y, z) - r,
                 $$
               em que
-              $$ F_1(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4*R*R*(x^2 + y^2), $$
-              $$ F_2(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4*R*R*(x^2 + z^2), $$
-              $$ F_3(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4*R*R*(y^2 + z^2). $$
+              $$ F_1(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4R^2(x^2 + y^2), $$
+              $$ F_2(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4R^2(x^2 + z^2), $$
+              $$ F_3(x, y, z) = (x^2 + y^2 + z^2 + R^2 - a^2)^2 - 4R^2(y^2 + z^2), $$
+              com \(R = 1\), \(a=0.2\) e \(r=0.01\).
             </p>
             <a href="imagens/t1/triple-semsuav.png"> 
               <img class='img_superficies' src="imagens/t1/triple-semsuav.png" alt="Torus Triplo sem suavização">
@@ -157,9 +204,9 @@
 
 
 
-            <b><h4>1.4 Torus-Cruzados</b></h4>
+            <b><h4>2.4 Torus-Cruzados</b></h4>
             <p> 
-              Esta função possui, além de contas algébricas, alguns operadores  condicionais. Desta forma, ela será apresentada diretamente como um código Matlab. <a href="inter-torus.html"> Acesse o código desta função clicando aqui. </a>
+              Esta função possui, além de contas algébricas, alguns operadores  condicionais. Desta forma, ela será apresentada diretamente como um código Matlab. <a href="exemplos_code/t1/inter-torus.html"> Acesse o código desta função clicando aqui. </a>
             </p>
             <a href="imagens/t1/interlocked-semsuav.png"> 
               <img class='img_superficies' src="imagens/t1/interlocked-semsuav.png" alt="Torus Cruzados sem suavização">
@@ -174,7 +221,7 @@
 
 
 
-            <b><h4>1.5 Gota em Queda</b></h4>
+            <b><h4>2.5 Gota em Queda</b></h4>
             Dado um parâmetro \(t \), esta superfície é definida pela função
             <p> $$
                   F(x, y, z) = F_1(x, y, z)\cdot F_2(x, y, z)-1000,
@@ -199,30 +246,39 @@
 
         <div id='vetoresnormais' class="card card-outline-secondary my-4">
           <div class="card-header">
-            <b><h3>2. Cálculo de vetores normais</h3></b>
+            <b><h3>3. Cálculo de vetores normais</h3></b>
           </div>
           <div class="card-body">
             <p>
-            	Dada uma superfície definida já de forma explícita por seus vértices e faces, neste trabalho também foi implementado um método para calcular o vetor normal a esta superfície em algum ponto. Nas imagens abaixo são novamente plotadas as superfícies dos exemplos anteriores, calculadas pelo algoritmo Marching Tetrahedra, juntamente com os vetores normais. 
+            	Dada uma superfície definida já de forma explícita por seus vértices e faces, neste trabalho também foi implementado um método para calcular o vetor normal a esta superfície em algum ponto. Este método está definido no arquivo Matlab <b>calcula_normais_vertices.m</b>.
+            </p>
+
+            <p>
+              O algoritmo Marching Tetrahedra e o cálculo das normais foram feitos de modo que os vetores sempre apontam no sentido do valor positivo da função \(F(x, y, z)\).
             </p>
             <p>
-            	O algoritmo Marching Tetrahedra e o cálculo das normais foram feitos de modo que os vetores sempre apontam no sentido do valor positivo da função \(F(x, y, z)\).
-        	</p>
+              Nas imagens abaixo são novamente plotadas as superfícies dos exemplos anteriores, calculadas pelo algoritmo Marching Tetrahedra, juntamente com os vetores normais. 
+            </p>
+
+        	
 
         	<a href="imagens/t1/torus-normais.png"> 
-              <img class='img_superficies' src="imagens/t1/torus-normais.png"  alt="Animação Gota">
-            </a>
-            <a href="imagens/t1/calice-normais.png"> 
-              <img class='gif_superficies' src="imagens/t1/calice-normais.png"  alt="Animação Gota">
+              <img class='img_superficies' src="imagens/t1/torus-normais.png"  alt="Torus - Normais">
             </a>
             <a href="imagens/t1/tripletorus-normais.png"> 
-              <img class='img_superficies' src="imagens/t1/tripletorus-normais.png"  alt="Animação Gota">
+              <img class='img_superficies' src="imagens/t1/tripletorus-normais.png"  alt="Triple Torus - Normais">
             </a>
             <a href="imagens/t1/interlockedtorus-normais.png"> 
-              <img class='img_superficies' src="imagens/t1/interlockedtorus-normais.png"  alt="Animação Gota">
+              <img class='img_superficies' src="imagens/t1/interlockedtorus-normais.png"  alt="Torus cruzados - Normais">
             </a>
             <a href="imagens/t1/drop-normais.png"> 
-              <img class='img_superficies' src="imagens/t1/drop-normais.png"  alt="Animação Gota">
+              <img class='img_superficies' src="imagens/t1/drop-normais.png"  alt="Gota - Normais">
+            </a>
+            <a href="imagens/t1/vanille-1.png"> 
+              <img class='img_superficies' src="imagens/t1/vanille-1.png"  alt="Vanille - Normais">
+            </a>
+            <a href="imagens/t1/bunny.png"> 
+              <img class='img_superficies' src="imagens/t1/bunny.png"  alt="Bunny - Normais">
             </a>
           </div>
         </div>
@@ -230,7 +286,7 @@
 
         <div id='conclusoes' class="card card-outline-secondary my-4">
           <div class="card-header">
-            <b><h3>3. Conclusões</h3></b>
+            <b><h3>4. Conclusões</h3></b>
           </div>
           <div class="card-body">
           	<p> Os resultados mostraram que realmente o algoritmo Marching Tetrahedra é capaz de representar visualmente muito bem uma superfície implícita. </p>
@@ -242,7 +298,7 @@
 
         <div id='codigofonte' class="card card-outline-secondary my-4">
           <div class="card-header">
-            <b><h3>4. Código-Fonte</h3></b>
+            <b><h3>5. Código-Fonte</h3></b>
           </div>
           <div class="card-body">
             <p>
