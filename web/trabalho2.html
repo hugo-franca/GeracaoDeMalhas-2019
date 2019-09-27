@@ -67,10 +67,12 @@
         <div class='sticky-top'>
           <h1 class="my-4">Trabalho 2</h1>
           <div class="list-group">
-            <a href="#marching" class="list-group-item">1. Seção</a>
-            <a href="#vetoresnormais" class="list-group-item">2. Seção</a>
-            <a href="#conclusoes" class="list-group-item">3. Seção</a>
-            <a href="#codigofonte" class="list-group-item">4. Seção</a>
+            <a href="#descricao" class="list-group-item">1. Descrição</a>
+            <a href="#offset" class="list-group-item">2. Efeito do offset</a>
+            <a href="#rbf" class="list-group-item">3. Efeito da RBF</a>
+            <a href="#grid" class="list-group-item">4. Efeito do grid</a>
+            <a href="#outrosexemplos" class="list-group-item">5. Outros exemplos</a>
+            <a href="#codigofonte" class="list-group-item">6. Código-Fonte</a>
           </div>
         </div>
       </div>
@@ -90,17 +92,155 @@
         </div>
         <!-- /.card -->
 
-        <div id='marching' class="card card-outline-secondary my-4">
+        <div id='cornertable' class="card card-outline-secondary my-4">
           <div class="card-header">
-            <b><h3>Pendente. </h3></b>
+            <b><h3>1. Descrição</h3></b>
           </div>
           <div class="card-body">
+            <p>
+              Neste trabalho foi implementado um algoritmo de interpolação RBF para determinar uma superfície implícita a partir de uma nuvem de pontos com vetores normais. Após criada a superfície implícita (dada através de uma função \(F\) definida em um grid), uma malha para a superfície é construida com a função isosurface do matlab.
+            </p>
 
-              Ainda não fiz.
+            <p>
+              Nas seções abaixo apresentamos os resultados obtidos para a nuvem de pontos fornecida no enunciado do trabalho. Em especial, averigua-se o efeito de três parâmetros na solução final. Estes parâmetros são:
+
+              <ul>
+                <li> Offset: espaçamento utilizado na construção dos novos pontos da nuvem. Estes pontos seguem a direção do vetor normal e estão a uma distância offset dos pontos originais.</li>
+                <li> Expoente RBF: é o expoente \(k\) utilizado na função de base radial poli-harmônica \( \varphi(r) = r^k \).</li>
+                <li> N: é a dimensão do grid no qual a função que define a superfície implícita será avaliado. O grid é criado com \( N \times N \times N \) pontos.</li>
+              </ul>
+            </p>
             
           </div>
         </div>
-        <!-- /.card -->
+
+        <div id='offset' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>2. Efeito da variação do offset</h3></b>
+          </div>
+          <div class="card-body">
+
+            <p>
+              Nesta seção o parâmetro offset foi variado para verificar o seu efeito na solução final. Nas imagens abaixo são mostradas as superfícies obtidas com offset=0.001 e offset=0.1, respectivamente. Por fim, apresenta-se uma animação com uma variação maior do parâmetro.
+            </p>
+
+            <p>
+              Pelos resultados, nota-se que deve-se usar valores relativamente pequenos para este parâmetro.
+            </p>
+
+            <a href="imagens/t2/variaOFF-0.001.png"> 
+              <img class='img_superficies' src="imagens/t2/variaOFF-0.001.png"  alt="Offset 0.001">
+            </a>
+
+            <a href="imagens/t2/variaOFF-0.1.png"> 
+              <img class='img_superficies' src="imagens/t2/variaOFF-0.1.png"  alt="Offset 0.1">
+            </a>
+
+            <a href="imagens/t2/variacao_offset.gif"> 
+              <img class='img_superficies' src="imagens/t2/variacao_offset.gif"  alt="Variação Offset">
+            </a>
+          </div>
+        </div>
+
+        <div id='rbf' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>3. Efeito da variação da RBF</h3></b>
+          </div>
+          <div class="card-body">
+
+            <p>
+              Nesta seção o expoente da função RBF poli-harmônica foi variado para verificar o seu efeito na solução final. Nas imagens abaixo são mostradas as superfícies obtidas com as RBFs \(\varphi(r) = r^1\), \(\varphi(r) = r^3\) e \(\varphi(r) = r^5\), respectivamente.
+            </p>
+
+            <p>
+              Os resultados obtidos foram razoáveis apenas até a RBF de ordem cúbica. A partir disto, a superfície obtida já estava visivelmente degenerada.
+            </p>
+            
+            <a href="imagens/t2/variaRBF-1.png"> 
+              <img class='img_superficies' src="imagens/t2/variaRBF-1.png"  alt="RBF com expoente 1">
+            </a>
+
+            <a href="imagens/t2/variaRBF-3.png"> 
+              <img class='img_superficies' src="imagens/t2/variaRBF-3.png"  alt="RBF com expoente 3">
+            </a>
+
+            <a href="imagens/t2/variaRBF-5.png"> 
+              <img class='img_superficies' src="imagens/t2/variaRBF-5.png"  alt="RBF com expoente 5">
+            </a>
+          </div>
+        </div>
+
+        <div id='grid' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>4. Efeito da variação do grid</h3></b>
+          </div>
+          <div class="card-body">
+
+            <p>
+              Nesta seção o refinamento do grid de interpolação foi variado para verificar o seu efeito na solução final. Nas imagens abaixo são mostradas as superfícies obtidas com os grids \(10 \times 10 \times 10 \) e \(100 \times 100 \times 100 \), respectivamente. Por fim, é feita uma animação, mostrando uma variação maior destes grids.
+            </p>
+
+            <p>
+              Como já era esperado, utilizar grids mais refinados gera melhores soluções. Contudo, o tempo de processamento também é significativamente maior.
+            </p>
+            
+            <a href="imagens/t2/variaN-10.png"> 
+              <img class='img_superficies' src="imagens/t2/variaN-10.png"  alt="Grid 10x10x10">
+            </a>
+
+            <a href="imagens/t2/variaN-100.png"> 
+              <img class='img_superficies' src="imagens/t2/variaN-100.png"  alt="Grid 100x100x100">
+            </a>
+
+            <a href="imagens/t2/variacao_grid.gif"> 
+              <img class='img_superficies' src="imagens/t2/variacao_grid.gif"  alt="Variação do grid">
+            </a>
+          </div>
+        </div>
+
+        <div id='grid' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>5. Outros exemplos</h3></b>
+          </div>
+          <div class="card-body">
+
+            <p>
+              Nesta seção apresenta-se rapidamente algumas superfície geradas como exemplo a partir de outras nuvens de pontos. Todos os exemplos das imagens abaixo também estão disponíveis no código-fonte.
+            </p>
+            
+            <a href="imagens/t2/teapot.png"> 
+              <img class='img_superficies' src="imagens/t2/teapot.png"  alt="Exemplo teapot">
+            </a>
+
+            <a href="imagens/t2/urso.png"> 
+              <img class='img_superficies' src="imagens/t2/urso.png"  alt="Exemplo urso">
+            </a>
+
+            <a href="imagens/t2/cow.png"> 
+              <img class='img_superficies' src="imagens/t2/cow.png"  alt="Exemplo Vaca">
+            </a>
+          </div>
+        </div>
+
+
+        <div id='codigofonte' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>6. Código-Fonte</h3></b>
+          </div>
+          <div class="card-body">
+            <p>
+              O código-fonte pode ser acessado <a href="https://github.com/hugo-franca/GeracaoDeMalhas-2019/tree/master/Trabalho1"> clicando aqui.</a>
+            </p>
+
+            <p>
+              Para rodar os exemplos individuais apresentados aqui, basta rodar o arquivo <b>main.m</b> no matlab. Logo nas primeiras linhas do arquivo é possível escolher os parâmetros e qual dos exemplos deseja rodar.
+            </p>
+
+            <p>
+              As duas animações (no formato .gif) apresentadas podem ser geradas rodando os scripts <b>main_Offset.m</b> e <b>main_N.m</b>.
+            </p>
+          </div>
+        </div>
 
 
       </div>
