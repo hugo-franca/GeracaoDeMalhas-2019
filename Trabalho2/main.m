@@ -5,9 +5,9 @@ clear imagem_gif;
 tic
 
 % Parametros
-n = 100; % Dimensao do grid
+n = 80; % Dimensao do grid
 expoente_RBF = 1;
-offset = 0.5;
+offset = 0.01;
 
 % Funcao RBF
 psi = @(r)( r.^expoente_RBF );
