@@ -44,11 +44,11 @@
           <li class="nav-item">
             <a class="nav-link" href="trabalho2.html">Trabalho 2</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">....</a>
-          </li>
           <li class="nav-item active">
-            <a class="nav-link" href="trabalho3.html">Trabalho N</a>
+            <a class="nav-link" href="trabalho3.html">Trabalho 3</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trabalho4.html">Trabalho 4</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="trabalhoFinal.html">Trabalho Final</a>
@@ -65,12 +65,11 @@
 
       <div class="col-lg-3">
         <div class='sticky-top'>
-          <h1 class="my-4">Trabalho N</h1>
+          <h1 class="my-4">Trabalho 3</h1>
           <div class="list-group">
-            <a href="#marching" class="list-group-item">1. Seção</a>
-            <a href="#vetoresnormais" class="list-group-item">2. Seção</a>
-            <a href="#conclusoes" class="list-group-item">3. Seção</a>
-            <a href="#codigofonte" class="list-group-item">4. Seção</a>
+            <a href="#descricao" class="list-group-item">1. Descrição</a>
+            <a href="#resultados" class="list-group-item">2. Resultados</a>
+            <a href="#codigofonte" class="list-group-item">3. Código-Fonte</a>
           </div>
         </div>
       </div>
@@ -80,8 +79,8 @@
 
         <div class="card mt-4">
           <div class="card-body">
-            <h1 class="card-title text-center">Trabalho N</h1>
-            <h2 class='text-center'>Tema do trabalho</h2>
+            <h1 class="card-title text-center">Trabalho 3</h1>
+            <h2 class='text-center'>Geração de grids pelo método TTM</h2>
             <p class="card-text">
               Aluno: Hugo Leonardo França <br>
               Professores: Afonso Paiva e Luis Gustavo Nonato
@@ -90,14 +89,176 @@
         </div>
         <!-- /.card -->
 
-        <div id='marching' class="card card-outline-secondary my-4">
+        <div id='descricao' class="card card-outline-secondary my-4">
           <div class="card-header">
-            <b><h3>Pendente. </h3></b>
+            <b><h3>1. Descrição </h3></b>
           </div>
           <div class="card-body">
 
-              Ainda não fiz.
+              <p>
+                Neste trabalho foi implementado um algoritmo em Matlab para gerar grids através da resolução de equações elípticas pelo método TTM.
+              </p>
+
+              <p>
+                Os grid obtidos são comparados com outros obtidos pelos métodos TFI e Winslow. Além disto, realiza-se também um estudo de convergência de métodos iterativos utilizados na resolução das equações.
+              <p>
             
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div id='resultados' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>2. Resultados </h3></b>
+          </div>
+          <div class="card-body">
+              <p>
+                Três geometrias foram testadas como exemplo. As parametrizações que definem cada uma destas geometrias podem ser vistas no início do arquivo de códifo-fonte <b>build_tfi.m</b>.
+              </p>
+
+              <p>
+                Em cada um dos exemplos foram realizados os seguintes testes:
+                <ol>
+                  <li> Cálculo de uma malha inicial \(M_1\) pelo método TFI. </li>
+                  <li> Cálculo de uma malha \(M_2\) pelas equações de Winslow (lado direito homogêneo).</li>
+                  <li> Cálculo de uma malha \(M_3\) pelas equações TTM (lado direito não-homogêneo).</li>
+                </ol>
+
+                Os testes 2 e 3 acima foram realizados 3 vezes cada um. Em cada uma das vezes, o sistema é resolvido por um método diferente, sendo eles: Jacobi, Gauss-Seidel e SOR.
+              </p>
+
+              <hr>
+              <b><h4>Exemplo 1. Chevron</b></h4>
+
+              As figuras abaixo apresentam, respectivamente:
+              <ul>
+                <li> Malha gerada pela interpolação TFI;</li>
+                <li> Malha gerada pelas equações de Winslow resolvidas com método SOR;</li>
+                <li> Malha gerada pelas equações TTM resolvidas com método SOR. Os parâmetros usados foram:  \(\xi_i = 0.5\), \(\eta_i = 0\) e \(a_i = b_i = c_i = d_i = 10\);</li>
+                <li> Convergência de cada um dos métodos iterativos para as equações TTM.</li>
+              </ul>
+
+              <p>
+                Observa-se que, no caso TTM as linhas são levadas mais a parte inferior-central do domínio. Isto acontece pois foram usados \(\xi_i = 0.5\) e \(\eta_i = 0\) .
+              </p>
+
+              <p>
+                Quanto a convergência dos métodos, observa-se claramente que o método SOR é o mais rápido, enquanto que o de Jacobi é o que mais demora a convergir.
+              </p>
+
+              <p>
+                <a href="imagens/t3/chevron_tfi.png"> 
+                  <img class='img_superficies' src="imagens/t3/chevron_tfi.png"  alt="Chevron- TFI">
+                </a>
+              </p>
+
+              <p>
+                <a href="imagens/t3/chevron_winslow.png"> 
+                  <img class='img_superficies' src="imagens/t3/chevron_winslow.png"  alt="Chevron - Winslow SOR">
+                </a>
+              </p>
+
+              <p>
+                <a href="imagens/t3/chevron_ttm.png"> 
+                  <img class='img_superficies' src="imagens/t3/chevron_ttm.png"  alt="Chevron - TTM SOR">
+                </a>
+              </p>
+
+              <p>
+                <a href="imagens/t3/chevron_conv.png"> 
+                  <img class='img_superficies' src="imagens/t3/chevron_conv.png"  alt="Chevron - Convergência">
+                </a>
+              </p>
+
+              <hr>
+              <b><h4>Exemplo 2. Swan</b></h4>
+
+              <p>
+                Os mesmos testes realizados no exemplo Chevron foram feitos também para a geometria Swan. As imagens com os resultados equivalentes são apresentadas abaixo.
+              </p>
+
+              <p>
+                Nas equações TTM, os seguintes parâmetros foram escolhidos: \(\xi_i = 0.2\), \(\eta_i = 0.5\) e \(a_i = b_i = c_i = d_i = 10\). Observa-se que há uma concentração um pouco maior das linhas do grid próximas de \(x = 0.2\).
+              </p>
+
+
+              <p>
+                <a href="imagens/t3/swan_tfi.png"> 
+                  <img class='img_superficies' src="imagens/t3/swan_tfi.png"  alt="Swan - TFI">
+                </a>
+              </p>
+
+              <p>
+                <a href="imagens/t3/swan_winslow.png"> 
+                  <img class='img_superficies' src="imagens/t3/swan_winslow.png"  alt="Swan - Winslow SOR">
+                </a>
+              </p>
+
+              <p>
+                <a href="imagens/t3/swan_ttm.png"> 
+                  <img class='img_superficies' src="imagens/t3/swan_ttm.png"  alt="Swan - TTM SOR">
+                </a>
+              </p>
+
+              <p>
+                <a href="imagens/t3/swan_conv.png"> 
+                  <img class='img_superficies' src="imagens/t3/swan_conv.png"  alt="Swan - Convergência">
+                </a>
+              </p>
+
+              <hr>
+              <b><h4>Exemplo 3. Airfoil</b></h4>
+
+              <p>
+                Os mesmos testes realizados nos exemplos Chevron e Swan foram feitos também para a geometria Airfoil. As imagens com os resultados equivalentes são apresentadas abaixo.
+              </p>
+
+              <p>
+                Nas equações TTM, os seguintes parâmetros foram escolhidos: \(\xi_i = 0.5\), \(\eta_i = 0.99\) e \(a_i = b_i = c_i = d_i = 10\). Devido aos parâmetros escolhidos, a concentração de linhas é maior no lado esquerdo da geometria, ao longo do eixo horizontal.
+              </p>
+
+              <p>
+                <a href="imagens/t3/airfoil_tfi.png"> 
+                  <img class='img_superficies' src="imagens/t3/airfoil_tfi.png"  alt="Airfoil - TFI">
+                </a>
+              </p>
+
+              <p>
+                <a href="imagens/t3/airfoil_winslow.png"> 
+                  <img class='img_superficies' src="imagens/t3/airfoil_winslow.png"  alt="Airfoil - Winslow SOR">
+                </a>
+              </p>
+
+              <p>
+                <a href="imagens/t3/airfoil_ttm.png"> 
+                  <img class='img_superficies' src="imagens/t3/airfoil_ttm.png"  alt="Airfoil - TTM SOR">
+                </a>
+              </p>
+
+              <p>
+                <a href="imagens/t3/airfoil_conv.png"> 
+                  <img class='img_superficies' src="imagens/t3/airfoil_conv.png"  alt="Airfoil - Convergência">
+                </a>
+              </p>
+            
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div id='codigofonte' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>3. Código-Fonte </h3></b>
+          </div>
+          <div class="card-body">
+
+            <p>
+              O código-fonte pode ser acessado <a href="https://github.com/hugo-franca/GeracaoDeMalhas-2019/tree/master/Trabalho3"> clicando aqui.</a>
+            </p>
+
+            <p>
+              Para rodar o algoritmo implementado, basta rodar o arquivo <b>main.m</b> no matlab. Logo nas primeiras linhas do arquivo é possível escolher qual exemplo deseja-se rodar, quais equações serão usadas, e os parâmetros (no caso TTM).
+            </p>
+
           </div>
         </div>
         <!-- /.card -->
