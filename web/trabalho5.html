@@ -98,7 +98,39 @@
           </div>
           <div class="card-body">
 
-              Pendente.
+              <p> 
+                Neste trabalho foi implementado um algoritmo para inserir um novo vértice em triangulação de Delaunay 2D já existente. Foi utilizado o algoritmo incremental apresentado em aula.
+              </p>
+
+              <p>
+                Entradas:
+                <ul>
+                  <li> V, F: Vértices e faces de uma triangulação de Delaunay já existente.</li>
+                  <li> p: um novo ponto que será inserido.</li>
+                </ul>
+
+                Saídas:
+                <ul>
+                  <li> V, F: O algoritmo retorna a triangulação de Delaunay com o novo ponto inserido.</li>
+                </ul>
+              </p>
+
+              <p>
+                De forma sucinta, o algoritmo funciona através dos seguintes passos:
+                <ol>
+                  <li> Encontrar qual triângulo contém o novo ponto \(p\).</li>
+                  <li> Divide o triângulo encontrado em 3 sub-triângulos \(T_1, T_2, T_3\). </li>
+                  <li> Adiciona as três arestas externas de \(T_1, T_2, T_3\) em uma pilha.</li>
+                  <li> Enquanto a pilha não estiver vazia: 
+                    <ol>
+                      <li> Retira uma aresta \(A\) da pilha.</li>
+                      <li> Verifica se esta aresta é Delaunay pelo teste \( InCircle \). </li>
+                      <li> Se a aresta não for Delaunay, inverta-a. Isto remove dois triângulos da malha, e adiciona dois novos. </li>
+                      <li> Adiciona na pilha as quatro arestas externas dos dois novos triângulos. </li>
+                    </ol>
+                  </li>
+                </ol>
+              </p>
             
           </div>
         </div>
@@ -110,7 +142,279 @@
           </div>
           <div class="card-body">
 
-              Pendente.
+              <p>
+                Nesta seção serão apresentados os resultados obtidos ao inserir os dois pontos de teste fornecidos no exercício. 
+
+                A figura abaixo apresenta a triangulação que será utilizada como entrada em todos os exemplos.
+              </p>
+
+              <p>
+                <a href="imagens/t5/malha.png"> 
+                  <img class='img_superficies' src="imagens/t5/malha.png"  alt="Triangulação de entrada">
+                </a>
+              </p>
+
+              <hr>
+              <p>
+                Neste exemplo serão inseridos, consecutivamente, os pontos \(p_1 = (0, 0)\) e \( p_2=(-0.3, 0.25) \) na triangulação. O slideshow abaixo apresenta o passo-a-passo do algoritmo que foi executado para inserir os pontos. Utilize as setas ao lado das imagens para avançar e retroceder nos passos. 
+              </p>
+
+              <div class="slideshow-container">
+                
+                <div class="mySlides">
+                  <div class="numbertext">1 / 48</div>
+                  <img src="imagens/t5/ambos/passo_0.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">2 / 48</div>
+                  <img src="imagens/t5/ambos/passo_1.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">3 / 48</div>
+                  <img src="imagens/t5/ambos/passo_2.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">4 / 48</div>
+                  <img src="imagens/t5/ambos/passo_3.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">5 / 48</div>
+                  <img src="imagens/t5/ambos/passo_4.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">6 / 48</div>
+                  <img src="imagens/t5/ambos/passo_5.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">7 / 48</div>
+                  <img src="imagens/t5/ambos/passo_6.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">8 / 48</div>
+                  <img src="imagens/t5/ambos/passo_7.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">9 / 48</div>
+                  <img src="imagens/t5/ambos/passo_8.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">10 / 48</div>
+                  <img src="imagens/t5/ambos/passo_9.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">11 / 48</div>
+                  <img src="imagens/t5/ambos/passo_10.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">12 / 48</div>
+                  <img src="imagens/t5/ambos/passo_11.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">13 / 48</div>
+                  <img src="imagens/t5/ambos/passo_12.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">14 / 48</div>
+                  <img src="imagens/t5/ambos/passo_13.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">15 / 48</div>
+                  <img src="imagens/t5/ambos/passo_14.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">16 / 48</div>
+                  <img src="imagens/t5/ambos/passo_15.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">17 / 48</div>
+                  <img src="imagens/t5/ambos/passo_16.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">18 / 48</div>
+                  <img src="imagens/t5/ambos/passo_17.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">19 / 48</div>
+                  <img src="imagens/t5/ambos/passo_18.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">20 / 48</div>
+                  <img src="imagens/t5/ambos/passo_19.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">21 / 48</div>
+                  <img src="imagens/t5/ambos/passo_20.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">22 / 48</div>
+                  <img src="imagens/t5/ambos/passo_21.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">23 / 48</div>
+                  <img src="imagens/t5/ambos/passo_22.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">24 / 48</div>
+                  <img src="imagens/t5/ambos/passo_23.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">25 / 48</div>
+                  <img src="imagens/t5/ambos/passo_24.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">26 / 48</div>
+                  <img src="imagens/t5/ambos/passo_25.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">27 / 48</div>
+                  <img src="imagens/t5/ambos/passo_26.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">28 / 48</div>
+                  <img src="imagens/t5/ambos/passo_27.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">29 / 48</div>
+                  <img src="imagens/t5/ambos/passo_28.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">30 / 48</div>
+                  <img src="imagens/t5/ambos/passo_29.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">31 / 48</div>
+                  <img src="imagens/t5/ambos/passo_30.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">32 / 48</div>
+                  <img src="imagens/t5/ambos/passo_31.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">33 / 48</div>
+                  <img src="imagens/t5/ambos/passo_32.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">34 / 48</div>
+                  <img src="imagens/t5/ambos/passo_33.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">35 / 48</div>
+                  <img src="imagens/t5/ambos/passo_34.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">36 / 48</div>
+                  <img src="imagens/t5/ambos/passo_35.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">37 / 48</div>
+                  <img src="imagens/t5/ambos/passo_36.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">38 / 48</div>
+                  <img src="imagens/t5/ambos/passo_37.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">39 / 48</div>
+                  <img src="imagens/t5/ambos/passo_38.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">40 / 48</div>
+                  <img src="imagens/t5/ambos/passo_39.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">41 / 48</div>
+                  <img src="imagens/t5/ambos/passo_40.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">42 / 48</div>
+                  <img src="imagens/t5/ambos/passo_41.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">43 / 48</div>
+                  <img src="imagens/t5/ambos/passo_42.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">44 / 48</div>
+                  <img src="imagens/t5/ambos/passo_43.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">45 / 48</div>
+                  <img src="imagens/t5/ambos/passo_44.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">46 / 48</div>
+                  <img src="imagens/t5/ambos/passo_45.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">47 / 48</div>
+                  <img src="imagens/t5/ambos/passo_46.png" style="width:100%">
+                </div>
+
+                <div class="mySlides">
+                  <div class="numbertext">48 / 48</div>
+                  <img src="imagens/t5/ambos/passo_47.png" style="width:100%">
+                </div>
+
+
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+              </div>
+
+
+
+
+
+
+
+
+              <br>
 
               <!-- <div style="text-align:center">
                 <span class="dot" onclick="currentSlide(1)"></span> 
@@ -130,7 +434,13 @@
           </div>
           <div class="card-body">
 
-            Pendente.
+            <p>
+              O código-fonte pode ser acessado <a href="https://github.com/hugo-franca/GeracaoDeMalhas-2019/tree/master/Trabalho5"> clicando aqui.</a>
+            </p>
+
+            <p>
+              Para rodar o algoritmo implementado, basta rodar o arquivo <b>main.m</b> no matlab. Logo no início do arquivo é possível selecionar os arquivos de entrada da triângulação, e também o novo ponto que será inserido. Além disto, há uma \( flag \) que habilita a impressão das imagens passo-a-passo apresentadas neste relatório.
+            </p>
             
           </div>
         </div>
