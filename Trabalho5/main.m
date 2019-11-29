@@ -17,6 +17,7 @@ p1 = [0, 0];
 p2 = [-0.3, 0.25];
 
 % Flag para imprimir imagens passo-a-passo ou nao
+% As imagens sao salvas na pasta "/imagens"
 passo_a_passo = false;
 
 % ==================================================
