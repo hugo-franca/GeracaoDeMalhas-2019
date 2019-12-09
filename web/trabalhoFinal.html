@@ -24,6 +24,17 @@
   <!-- Custom styles for this template -->
   <link href="css/shop-item.css" rel="stylesheet">
 
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    });
+
+    MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "AMS"} } });
+  </script>
+
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 </head>
 
@@ -70,10 +81,13 @@
         <div class='sticky-top'>
           <h1 class="my-4">Trabalho Final</h1>
           <div class="list-group">
-            <a href="#marching" class="list-group-item">1. Seção</a>
-            <a href="#vetoresnormais" class="list-group-item">2. Seção</a>
-            <a href="#conclusoes" class="list-group-item">3. Seção</a>
-            <a href="#codigofonte" class="list-group-item">4. Seção</a>
+            <a href="#introducao" class="list-group-item">1. Introdução</a>
+            <a href="#hrbf" class="list-group-item">2. Funções HRBF</a>
+            <a href="#lshrbf" class="list-group-item">3. Funções LSHRBF</a>
+            <a href="#amostragem" class="list-group-item">4. Amostragem adaptativa</a>
+            <a href="#particaouni" class="list-group-item">5. Partição de unidade</a>
+            <a href="#resultados" class="list-group-item">6. Resultados</a>
+            <a href="#conclusao" class="list-group-item">7. Conclusão e código-fonte</a>
           </div>
         </div>
       </div>
@@ -84,18 +98,229 @@
         <div class="card mt-4">
           <div class="card-body">
             <h1 class="card-title text-center">Trabalho Final</h1>
-            <h2 class='text-center'>Tema do trabalho final</h2>
-            <p class="card-text">
-              Aluno: Hugo Leonardo França <br>
+            <h2 class='text-center'>Funções implícitas de base radial de Hermite com mínimos quadrados e amostragem adaptativa</h2>
+            <div class='nomes' >
+              Alunos: Hugo França e Ana Lemes <br>
               Professores: Afonso Paiva e Luis Gustavo Nonato
+            </div>
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div id='introducao' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>1. Introdução </h3></b>
+          </div>
+          <div class="card-body">
+
+            <p>
+
+              Neste trabalho foi implementado um método para reconstruir superfícies a partir de uma nuvem de pontos. O método utilizado, que foi proposto no artigo [CITAR], busca construir uma função implícita que represente a superfície através de funções de base radial de Hermite (HRBF).
+            </p>
+            <p>
+              Busca-se uma função implícita que preserve a forma geral da superfície e também os detalhes locais utilizando um número pequeno de coeficientes. Para este fim, foram propostos (i) uma abordagem de amostragem que seleciona incrementalmente os centros adequados para as funções radiais e (ii) uma construção da função implícita baseada em HRBF com mínimos quadrados.
             </p>
           </div>
         </div>
         <!-- /.card -->
 
-        <div id='marching' class="card card-outline-secondary my-4">
+        <div id='hrbf' class="card card-outline-secondary my-4">
           <div class="card-header">
-            <b><h3>Pendente. </h3></b>
+            <b><h3>2. Funções implícitas de base radial de Hermite </h3></b>
+          </div>
+          <div class="card-body">
+
+              <p>
+                Uma forma de reconstruir superfícies a partir de uma nuvem de pontos é através de funções de base radial de hermite (HRBF) implícitas. Estas funções são construídas de modo a interpolar valores fornecidos tanto para a função em si, quanto para a sua derivada.
+              </p>
+
+              <p>
+                Desta forma, teremos como entrada um conjunto de pontos $\mathcal P = \left \{ \textbf{x}_{i} \right \}_{i=1}^{n} \subset \mathbb{R}^{3}$, bem como o conjunto com o vetor normal em cada ponto ${\cal N} =  \left \{\textbf{n}_{i}\right\}_{i=1}^{n} \subset \mathbb{R}^{3}$. Refere-se a estes pontos como os <b>centros</b> da HRBF. O irá encontrar uma função $f:\mathbb{R}^{3} \rightarrow \mathbb{R}$ que possui a forma
+                \begin{equation}
+                f\left(x \right ) = \sum_{j=1}^{n}\begin{Bmatrix}
+                \alpha_{j}\psi\left(\textbf{x} - \textbf{x}_{j} \right) - \left\langle  \beta_{j},\nabla\psi \left(\textbf{x} - \textbf{x}_{j} \right) \right \rangle
+                \end{Bmatrix},
+                \label{Eq1}
+                \end{equation}
+                em que $\psi: \mathbb{R}^{3} \rightarrow \mathbb{R}$ é uma função radial $\psi\left(\textbf{x} \right) = \phi \left(\left \| \textbf{x} \right \|\right )$ e $\alpha_{j} \in \mathbb{R}$ e $\beta_{j} \in \mathbb{R}^{3}$ são os coeficientes desconhecidos que serão determinados impondo as seguintes restrições sobre $f$:
+                \begin{equation}
+                    f\left(\textbf{x}_{i}\right) = 0, \quad \forall \textbf{x}_{i} \ \in \ {\cal P},
+                    \label{Eq2}
+                \end{equation}
+                \begin{equation}
+                    \nabla f(\textbf{x}_{i}) = \textbf{n}_{i},  \quad \forall \textbf{n}_{i} \ \in \ {\cal N}.
+                    \label{Eq3}
+                \end{equation}
+                Observe que \eqref{Eq2} faz com que $f$ tenha seu nível zero sobre os pontos da nuvem, enquanto que \eqref{Eq3} faz com que o gradiente de $f$ seja o vetor normal a superfície. 
+              </p>
+
+              <p>
+                Nas equações anteriores, é pede-se que $\psi$ seja estritamente positivo definido e pelo menos de classe $C^{2}$. Isto garante não apenas que os coeficientes $\alpha_{j}$ e $\beta_{j}$ serão determinados de forma exclusiva, mas também que o interpolante será de classe $C^{1}$. 
+              </p>
+
+              <p>
+
+                Para garantir a unicidade dos coeficientes, no caso de funções condicionalmente  definidas positivas, é comum adicionar um polinômio de grau $m$ (escolhido) na expressão \eqref{Eq1}. Desse modo, teremos:
+                \begin{equation}
+                f\left(\textbf{x} \right )  =  \sum_{j=1}^{n}\begin{Bmatrix}
+                \alpha_{j}\psi\left(\textbf{x} - \textbf{x}_{j} \right) - \left\langle  \beta_{j},\nabla\psi \left(\textbf{x} - \textbf{x}_{j} \right) \right \rangle
+                \end{Bmatrix} + p\left(\textbf{x}\right),
+                \label{Eq6}
+                \end{equation}
+                em que $p: \mathbb{R}^3 \rightarrow \mathbb{R}$ é o novo polinômio.
+
+                Se um polinômio tem grau $m$, ele possui $N = \begin{pmatrix} m+3\\3\end{pmatrix}$ coeficientes. Tomando uma base de polinômios $\{p_1, p_2, \ldots, p_N\}$, iremos escrever
+                \begin{equation}
+                  p\left(\textbf{x}\right) = \sum_{i=1}^{N}\lambda_{i}p_{i}\left(\textbf{x}\right).
+                \label{eq_polinomio}
+                \end{equation}
+
+                Como $N$ novas incógnitas $\lambda_i$ foram introduzidas, iremos também impor as seguintes $N$ restrições sobre o polinômio:
+                \begin{equation}
+                \sum_{j=1}^{n}\begin{Bmatrix}
+                \alpha_{j}p_{k}\left(\textbf{x}_{j} \right) - \left\langle  \beta_{j},\nabla p_{k} \left(\textbf{x}_{j} \right) \right \rangle
+                \end{Bmatrix}=0, \quad k = 1,\dots,N.
+                \label{Eq7}
+                \end{equation}
+              </p>
+
+              <p>
+                Substituindo \eqref{Eq6} em \eqref{Eq2}-\eqref{Eq3}, e usando também \eqref{Eq7}, obtemos o seguinte sistema de restrições:
+                \begin{eqnarray}
+                 & \sum_{j=1}^{n}\begin{Bmatrix}
+                \alpha_{j}\psi\left(\textbf{x}_{i} - \textbf{x}_{j} \right) - \left\langle  \beta_{j},\nabla\psi \left(\textbf{x}_{i} - \textbf{x}_{j} \right) \right \rangle
+                \end{Bmatrix} +  \sum_{j=1}^{N}\lambda_{j}p_{j}\left(\textbf{x}_i\right) = 0, \quad i = 1, \ldots, n,
+                \label{EqHRBF1}\\
+                 & \sum_{j=1}^{n}\begin{Bmatrix}
+                \alpha_{j}\nabla\psi\left(\textbf{x}_{i} -\textbf{x}_{j} \right) - \text{H}\psi\left(\textbf{x}_{i} - \textbf{x}_{j} \right)\beta_{j}
+                \end{Bmatrix} +  \sum_{j=1}^{N}\lambda_{j}\nabla p_{j}\left(\textbf{x}_i\right) =\textbf{n}_{i}, \quad i = 1, \ldots, n,
+                \label{EqHRBF2}
+                \\
+                & \sum_{j=1}^{n}\begin{Bmatrix}
+                \alpha_{j}p_{k}\left(\textbf{x}_{j} \right) - \left\langle  \beta_{j},\nabla p_{k} \left(\textbf{x}_{j} \right) \right \rangle
+                \end{Bmatrix}=0, \quad k = 1,\ldots,N,
+                \label{EqHRBF3}
+                \end{eqnarray}
+                em que $\text{H}$ é o operador Hessiano. 
+              <p>
+
+
+              <p>
+                O sistema de equações \eqref{EqHRBF1}-\eqref{EqHRBF3} pode ser escrito em uma forma matricial por blocos como:
+                \begin{equation}
+                \overset{
+                  \begin{array}{lrr}
+                  \hspace{6.0mm} {\color{red}n} & \hspace{4.5mm} \color{red}{3n} & \hspace{4.5mm}{\color{red}N}
+                  \end{array}
+                }
+                {
+                  \begin{array}{r}
+                  {\scriptsize \color{red}{n}} \\ {\scriptsize \color{red}{3n}} \\ {\scriptsize \color{red}{N}}
+                  \end{array}
+                  \begin{bmatrix}
+                  \textbf{A} &     \textbf{-D}  & \textbf{P} \\ 
+                  \textbf{D}^{T} & \textbf{G}  & \textbf{P}_{G} \\ 
+                  \textbf{A}_{P} & \textbf{G}_{P}  & 0
+                  \end{bmatrix}
+                }
+                \begin{bmatrix}
+                \alpha\\ 
+                \beta\\ 
+                \lambda
+                \end{bmatrix} = 
+                \begin{bmatrix}
+                \textbf{0}\\ 
+                \textbf{n}\\ 
+                \textbf{0}
+                \end{bmatrix}.
+                \label{Eq10}
+                \end{equation}
+                em que
+                \begin{split}
+                  & \alpha = \left [ \alpha_{1} \quad \alpha_{2} \quad \alpha_{3} \dots \alpha_{n}\right ]^{T} \in \mathbb{R}^{n}, \\
+                  & \beta = \left [ \beta_{1} \quad \beta_{2} \quad \beta_{3} \dots \beta_{n}\right ] = 
+                \left [ \beta_{1}^{x} \quad \beta_{1}^{y} \quad \beta_{1}^{z} \quad \beta_{2}^{x} \quad \beta_{2}^{y} \quad \beta_{2}^{z} \quad \dots \quad \beta_{n}^{x} \quad \beta_{n}^{y} \quad \beta_{n}^{z}\right ] 
+                 \in \mathbb{R}^{3n}, \\
+                  & \lambda = \left [ \lambda_{1} \quad \lambda_{2} \quad \lambda_{3} \quad \dots \quad \lambda_{n}\right ] \in \mathbb{R}^n,
+                \end{split}
+                e os valores em vermelho indicam as dimensões de cada bloco.
+              </p>
+
+              <p>
+                Note que a matriz deste sistema linear possui $(4n + N)$ linhas e colunas. Para uma descrição mais detalhada dos blocos matriciais na equação \eqref{Eq10}, clique aqui.
+              </p>
+            
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div id='lshrbf' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>3. Funções implícitas HRBF com mínimos quadrados </h3></b>
+          </div>
+          <div class="card-body">
+
+            <p>
+              Em [CITAR] é proposta também uma modificação da função interpoladora apresentada na seção 2. Na interpolação HRBF, uma função foi construída utilizando todo o conjunto de pontos $\mathcal P$ como centros. A nova proposta é escolher apenas uma quantidade $L$ de pontos dentro de $\mathcal P$ que serão utilizados como centros para as funções de base radial. Portanto, para construir esta função são necessários três conjuntos de entrada: 
+              <ul>
+                <li> $\mathcal P = \left \{ \textbf{x}_{i} \right \}_{i=1}^{n} \subset \mathbb{R}^{3}$ </li>
+                <li> ${\cal N} =  \left \{\textbf{n}_{i}\right\}_{i=1}^{n} \subset \mathbb{R}^{3}$ </li>
+                <li> $\mathcal C = \left \{ \bar{\textbf{x}}_{i} \right \}_{i=1}^{L} \subset \mathcal P$</li>
+              </ul>
+
+
+              Sendo assim, a função interpoladora será escrita apenas em função dos centros em $\mathcal C$ como
+              \begin{equation}
+                f\left(\textbf{x} \right )  =  \sum_{j=1}^{L}\begin{Bmatrix}
+                \alpha_{j}\psi\left(\textbf{x} - \bar{\textbf{x}}_{j} \right) - \left\langle  \beta_{j},\nabla\psi \left(\textbf{x} - \bar{\textbf{x}}_{j} \right) \right \rangle
+                \end{Bmatrix} + p\left(\textbf{x}\right).
+                \label{EqFuncaoLSHRBF}
+              \end{equation}
+
+              Observe que a única diferença entre as funções \eqref{EqFuncaoLSHRBF} e \eqref{Eq6} é a quantidade de pontos usados como centros. Em \eqref{Eq6} possuiamos $(4n + N)$ coeficientes a serem determinados, e agora possuimos apenas $(4L + N)$.
+            </p>
+
+            <p>
+              Para determinar os coeficientes desta função iremos tentar impor que as restrições \eqref{EqHRBF1}-\eqref{EqHRBF3} sejam novamente satisfeitas para todos os $n$ pontos da nuvem $\mathcal P$. Ou seja, teremos o sistema linear
+              \begin{equation}
+                \overset{
+                  \begin{array}{lrr}
+                  \hspace{6.0mm} {\color{red}L} & \hspace{4.5mm} \color{red}{3L} & \hspace{4.5mm}{\color{red}N}
+                  \end{array}
+                }
+                {
+                  \begin{array}{r}
+                  {\scriptsize \color{red}{n}} \\ {\scriptsize \color{red}{3n}} \\ {\scriptsize \color{red}{N}}
+                  \end{array}
+                  \begin{bmatrix}
+                  \textbf{A} &     \textbf{-D}  & \textbf{P} \\ 
+                  \textbf{D}^{T} & \textbf{G}  & \textbf{P}_{G} \\ 
+                  \textbf{A}_{P} & \textbf{G}_{P}  & 0
+                  \end{bmatrix}
+                }
+                \begin{bmatrix}
+                \alpha\\ 
+                \beta\\ 
+                \lambda
+                \end{bmatrix} = 
+                \begin{bmatrix}
+                \textbf{0}\\ 
+                \textbf{n}\\ 
+                \textbf{0}
+                \end{bmatrix}.
+                \label{EqMatricialLSHRBF}
+                \end{equation}
+
+                Observe que o sistema \eqref{EqMatricialLSHRBF} possui mais linhas do que colunas, de modo que, em geral, ele não possui solução. Desta forma, iremos apenas encontrar a melhor solução possível no sentido de mínimos quadrados. Devido a isto, a função interpoladora gerada por este método será chamada de função <i>Least-Squares</i> HRBF (LSHRBF).
+            </p>
+            
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div id='amostragem' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>4. Amostragem adaptativa </h3></b>
           </div>
           <div class="card-body">
 
@@ -105,6 +330,65 @@
         </div>
         <!-- /.card -->
 
+        <div id='particaouni' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>5. Partições de unidade </h3></b>
+          </div>
+          <div class="card-body">
+
+              Ainda não fiz.
+            
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div id='resultados' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>6. Resultados </h3></b>
+          </div>
+          <div class="card-body">
+
+            <p>
+              Nesta seção apresentaremos alguns resultados obtidos com o algoritmo implementado. 
+            </p>
+
+            <p>
+              Para tentar reproduzir o que foi feito no artigo de referência, optamos por utilizar em nossos testes a função de base radial triharmônica, isto é,
+              \begin{equation}
+                  \psi\left(\textbf{x} \right ) = \left \| \textbf{x} \right \|^{3}.
+                  \label{Eq13}
+              \end{equation}
+              O vetor gradiente e a matriz Hessiana desta função radial são, respectivamente,
+              \begin{equation}
+                \nabla\psi\left(\textbf{x} \right ) = 3\textbf{x}\left \| \textbf{x} \right \|,
+                \label{Eq14}
+              \end{equation}
+              \begin{eqnarray}
+                  \textbf{H}\psi\left(\textbf{x} \right) = 
+                  \left\{\begin{array}{l}
+                    \dfrac{3}{\left \| \textbf{x} \right \|} \left(\left \| \textbf{x} \right \|^{2}\mathbb{I}_{3\times3} + \textbf{xx}^{t}\right ), \quad &\left \| \textbf{x} \right \| \neq 0,\\ 
+                    0_{3\times 3}, \quad &\left \| \textbf{x} \right \|= 0.
+                  \end{array}\right.
+              \label{Eq15}
+              \end{eqnarray}
+              onde $\mathbb{I}$ é a matriz identidade.
+            </p>
+            
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div id='conclusao' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>7. Conclusão e código-fonte </h3></b>
+          </div>
+          <div class="card-body">
+
+              Ainda não fiz.
+            
+          </div>
+        </div>
+        <!-- /.card -->
 
       </div>
       <!-- /.col-lg-9 -->

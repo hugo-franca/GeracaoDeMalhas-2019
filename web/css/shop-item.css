@@ -24,8 +24,13 @@ body {
 	color: #000000;
 }
 
+.nomes{
+  padding-left: 30px;
+}
+
 p {
 	text-align: justify;
+  text-indent: 30px;
 }
 
 
