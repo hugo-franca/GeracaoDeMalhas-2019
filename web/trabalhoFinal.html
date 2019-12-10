@@ -324,7 +324,45 @@
           </div>
           <div class="card-body">
 
-              Ainda não fiz.
+            <p>
+              Nas seções anteriores foi explicado como as funções implícitas serão geradas a partir de um conjunto selecionado de pontos centrais. Porém, caso a nuvem de pontos seja muito grande, é inviável que todo o conjunto seja usado como centros. Dessa forma, vamos agora explicar o algoritmo proposto por [CITAR] para selecionar alguns centros dentro da nuvem de pontos.
+            </p>
+
+            <p>
+              A escolha de centros proposta em [CITAR] é baseada em um algoritmo guloso que favorece pontos que maximizem não apenas o resíduo da função implícita, mas também a diferença no vetor gradiente. Isto permite que a distribuição de centros concentre-se em característica locais da interface, de modo a reconstruir detalhes finos com mais precisão.
+            </p>
+
+
+            <p>
+              O algoritmo para a seleção de centros funciona da seguinte forma:
+              <ol>
+                <li> 
+                  <b>Passo inicial</b>: construir um conjunto $C_1 = \{\textbf{x}_1\}$, em que $\textbf{x}_1 \in \mathcal P$ é escolhido de forma aleatória.</li>
+                <li> 
+                  <b>Passo iterativo</b>: para $i = 2, 3, \ldots, L$, construa $C_i = C_{i-1} \cup \{\textbf{x}_i\}$,  sendo que $x_i$ é o ponto da nuvem que maximiza a seguinte função:
+                  \begin{equation}
+                    J_{i-1}(\textbf{x}) = \left|\left|
+                      \begin{array}{c}  
+                        \kappa_1 f_{i-1}(\textbf{x}) \\
+                        \kappa_2\left( \nabla f_{i-1}(\textbf{x}) - \textbf{n} \right)
+                      \end{array}
+                      \right|\right|_2,
+                  \label{funcaoMaximizar}
+                  \end{equation}
+                  em que
+                  <ul>
+                    <li> $\textbf{x}$ é um ponto que pertence a nuvem $\mathcal P$, </li>
+                    <li> $\textbf{n}$ é o vetor normal associado ao ponto $\textbf{x}$,</li>
+                    <li> $f_{i-1}$ é uma função interpoladora construída usando o conjunto $\{C_{i-1}\}$ como centros. Note que esta função pode ser tanto uma HRBF implícita (seção 2), quanto LSHRBF (seção 3).</li>
+                    <li> $\kappa_1$ e $\kappa_2$ são hiperparâmetros a serem escolhidos. O artigo de referência sugere $\kappa_2 = 0.5$ e $\kappa_1 = 100r^{-1}$, em que $r$ é aproximadente o diâmetro da menor esfera que contém $\mathcal P$.</li>
+                  </ul>
+                </li>
+              </ol>
+
+              <p>
+                Observe que a função \eqref{funcaoMaximizar} envolve a norma de um vetor com 4 elementos (pois o bloco inferior possui três elementos). O primeiro bloco da função busca maximizar o valor do resíduo na função, enquanto o segundo bloco busca maximizar o valor do resíduo no gradiente.   
+              </p>
+            </p>
             
           </div>
         </div>
@@ -336,7 +374,51 @@
           </div>
           <div class="card-body">
 
-              Ainda não fiz.
+            <p>
+              Para nuvens de pontos muito grandes, a matriz do sistema linear visto anteriormente pode se tornar extramamente grande, e armazená-la em memória passa a ser inviável. Uma solução deste problema, é utilizar a técnica de partição de unidade, descrita em [CITAR]. Esta técnica também foi implementada neste projeto.
+            </p>
+
+            <p>
+              A técnica de partição de unidade funciona da seguinte forma:
+              <ul>
+                <li> Define-se um domínio global $\Omega$ como a menor caixa que contém a nuvem $\mathcal P$, </li>
+                <li> A caixa $\Omega$ é subdividida em um grid regular com $M = M_x \times M_y \times M_z$ células, </li>
+                <li> 
+                  Todas as células do grid são esticadas de modo a criar uma sobreposição entre elas. Sejam $S$ e $T$ dois pontos que definem cantos opostos de uma célula, a célula é esticada fazendo a seguinte modificação nestes pontos:
+                  \begin{eqnarray}
+                     {S}' & = & S - \dfrac{\left(k-1\right)\left(T-S\right)}{2},\\
+                     {T}' & = & T + \dfrac{\left(k-1\right)\left(T-S\right)}{2},
+                  \end{eqnarray}
+                  em que $k>1$ é um parâmetro que define o quanto a célula será esticada.
+                </li>
+                <li> Constroi-se uma sub-nuvem de pontos associada a cada célula do grid. Cada célula $i$ terá uma sub-nuvem $\mathcal i$ contendo os pontos de $\mathcal P$ que estão dentro dela. </li>
+                <li> Controi-se uma função interpoladora local $f_i$ para cada uma das células $i$ usando suas respectivas sub-nuvens de pontos. </li>
+                <li> 
+                  Define-se a função interpoladora global como
+                  \begin{equation}
+                      f\left(\textbf{x} \right ) = \sum_{i=1}^{M}f_{i}\left(\textbf{x} \right ){w}_{i}\left(\textbf{x} \right ),
+                  \end{equation}
+                  em que $w_i$ são funções de ponderação não negativas que satisfazem $\sum_{i=1}^{M}{w}_{i}\left(\textbf{x}\right) = 1$ para $\textbf{x} \in \Omega$.
+                </li>
+              </ul>
+
+              As funções de ponderação $w_i$ são definidas como
+              \begin{equation}
+                  w_{i}\left(\textbf{x} \right ) = \dfrac{W_{i}\left(\textbf{x} \right )}{\sum_{j=1}^{M} W_{j}\left(\textbf{x}\right)},
+              \end{equation}
+              em que $W_i$ são funções com suporte compacto na célula $i$. Utilizamos aqui, uma função proposta em [CITAR], definida por
+              \begin{equation}
+                  W_{i}\left(\textbf{x}\right) = V \circ D_{i}\left(\textbf{x} \right ),
+              \end{equation}
+              onde
+              \begin{equation}
+                  D_{i}\left(\textbf{x} \right ) = 1 - \prod_{r=1}^{3}\dfrac{4\left(\textbf{x}_{r} - S_{r} \right )\left(T_{r} - \textbf{x}_{r} \right )}{\left(T_{r} - S_{r} \right )^{2}},
+              \end{equation}
+              em que $r$ indica as cada coordenada de um ponto, e
+              \begin{equation}
+                  V\left(t \right ) = -6t^{5} + 15t^{4} - 10t^{3} + 1.
+              \end{equation}
+            </p>
             
           </div>
         </div>
@@ -372,6 +454,29 @@
               \label{Eq15}
               \end{eqnarray}
               onde $\mathbb{I}$ é a matriz identidade.
+            </p>
+
+            <p>
+
+              <img src="imagens/tfinal/cubo_buraco_original.png" alt="Snow" style="display:block;width:50%;margin-left: auto;margin-right: auto;">
+
+              <div class="row">
+                <div class="column">
+                  <img src="imagens/tfinal/cubo_buraco-tipoHRBF-centros80-parts1.png" alt="Snow" style="width:100%">
+                </div>
+                <div class="column">
+                  <img src="imagens/tfinal/cubo_buraco-tipoLSHRBF-centros80-parts1.png" alt="Forest" style="width:100%">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="column">
+                  <img src="imagens/tfinal/cubo_buraco-tipoHRBF-centros500-parts1.png" alt="Snow" style="width:100%">
+                </div>
+                <div class="column">
+                  <img src="imagens/tfinal/cubo_buraco-tipoLSHRBF-centros500-parts1.png" alt="Forest" style="width:100%">
+                </div>
+              </div>
             </p>
             
           </div>

@@ -18,6 +18,9 @@ nome_modelo = 'cubo_buraco'
 % nome_modelo = 'armadillo'
 
 
+
+
+
 tipo_interpolacao = 'HRBF'
 % tipo_interpolacao = 'LSHRBF'
 
@@ -46,6 +49,7 @@ grid_fantasma = 10;
 
 
 load(['modelos/', nome_modelo, '.mat']);
+aaaa
 
 Valores = zeros( size(P, 1), 1 );
 
