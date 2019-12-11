@@ -13,9 +13,9 @@ tic
 % nome_modelo = 'bunny'
 % nome_modelo = 'spot'
 % nome_modelo = 'torus_ana'
-nome_modelo = 'cubo_buraco'
+% nome_modelo = 'cubo_buraco'
 % nome_modelo = 'torcido'
-% nome_modelo = 'armadillo'
+nome_modelo = 'armadillo'
 
 
 
@@ -25,19 +25,19 @@ tipo_interpolacao = 'HRBF'
 % tipo_interpolacao = 'LSHRBF'
 
 % Quantidade de particoes de unidade em cada direcao
-Mx = 1;
+Mx = 3;
 My = Mx;
 Mz = Mx;
 
 % Quantidade de centros por particao
-N_parts = 80;
+N_parts = 30;
 
 % Dimensao do grid pra avaliar a funcao no final e reconstruir a superficie
 dim_grid = 80;
 
 % Dimensao do grid fantasma usado para adicionar pontos fantasmas em regioes muito vazias
 % Quanto maior, mais ele remove as folhas falsas no LSHRBF, mas pode dar uma piorada na superficie
-grid_fantasma = 10;
+grid_fantasma = 15;
 
 % ========================================================
 % === Fim da definicao de parametros pelo usuario
@@ -49,7 +49,7 @@ grid_fantasma = 10;
 
 
 load(['modelos/', nome_modelo, '.mat']);
-aaaa
+
 
 Valores = zeros( size(P, 1), 1 );
 
@@ -59,6 +59,7 @@ for i=1:size(N, 1)
 	N(i, :) = N(i, :)/norm(N(i, :));
 end
 
+% Normalizando os pontos
 pmin = min(P, [], 1);
 pmax = max(P, [], 1);
 centroid = sum(P, 1);
@@ -74,11 +75,12 @@ min_pou = min(P, [], 1);
 max_pou = max(P, [], 1);
 pou_size = max_pou - min_pou;
 
-% Add margin
+% Adiciona uma margem
 margem_fator = 0.25;
 max_pou = max_pou + pou_size*margem_fator;
 min_pou = min_pou - pou_size*margem_fator;
 
+% Parametros para a escolha dos centros
 k1 = 100.0/norm(max_pou - min_pou);
 k2 = 0.5;
 

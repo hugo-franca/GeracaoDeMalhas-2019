@@ -32,7 +32,12 @@ body {
   float: left;
   width: 50.0%;
   padding: 5px;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 /* Clear floats after image containers */
 .row::after {
@@ -40,6 +45,10 @@ body {
   content: "";
   clear: both;
   display: table;
+}
+
+.caption {
+    display: block;
 }
 
 p {

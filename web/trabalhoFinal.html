@@ -131,7 +131,7 @@
           <div class="card-body">
 
               <p>
-                Uma forma de reconstruir superfícies a partir de uma nuvem de pontos é através de funções de base radial de hermite (HRBF) implícitas. Estas funções são construídas de modo a interpolar valores fornecidos tanto para a função em si, quanto para a sua derivada.
+                Uma forma de reconstruir superfícies a partir de uma nuvem de pontos é através de funções de base radial de Hermite (HRBF) implícitas. Estas funções são construídas de modo a interpolar valores fornecidos tanto para a função em si, quanto para a sua derivada.
               </p>
 
               <p>
@@ -155,7 +155,7 @@
               </p>
 
               <p>
-                Nas equações anteriores, é pede-se que $\psi$ seja estritamente positivo definido e pelo menos de classe $C^{2}$. Isto garante não apenas que os coeficientes $\alpha_{j}$ e $\beta_{j}$ serão determinados de forma exclusiva, mas também que o interpolante será de classe $C^{1}$. 
+                Nas equações anteriores, pede-se que $\psi$ seja estritamente positivo definido e pelo menos de classe $C^{2}$. Isto garante não apenas que os coeficientes $\alpha_{j}$ e $\beta_{j}$ serão determinados de forma exclusiva, mas também que o interpolante será de classe $C^{1}$. 
               </p>
 
               <p>
@@ -263,9 +263,9 @@
             <p>
               Em [CITAR] é proposta também uma modificação da função interpoladora apresentada na seção 2. Na interpolação HRBF, uma função foi construída utilizando todo o conjunto de pontos $\mathcal P$ como centros. A nova proposta é escolher apenas uma quantidade $L$ de pontos dentro de $\mathcal P$ que serão utilizados como centros para as funções de base radial. Portanto, para construir esta função são necessários três conjuntos de entrada: 
               <ul>
-                <li> $\mathcal P = \left \{ \textbf{x}_{i} \right \}_{i=1}^{n} \subset \mathbb{R}^{3}$ </li>
-                <li> ${\cal N} =  \left \{\textbf{n}_{i}\right\}_{i=1}^{n} \subset \mathbb{R}^{3}$ </li>
-                <li> $\mathcal C = \left \{ \bar{\textbf{x}}_{i} \right \}_{i=1}^{L} \subset \mathcal P$</li>
+                <li> $\mathcal P = \left \{ \textbf{x}_{i} \right \}_{i=1}^{n} \subset \mathbb{R}^{3}$, </li>
+                <li> ${\cal N} =  \left \{\textbf{n}_{i}\right\}_{i=1}^{n} \subset \mathbb{R}^{3}$, </li>
+                <li> $\mathcal C = \left \{ \bar{\textbf{x}}_{i} \right \}_{i=1}^{L} \subset \mathcal P$.</li>
               </ul>
 
 
@@ -456,29 +456,94 @@
               onde $\mathbb{I}$ é a matriz identidade.
             </p>
 
+            <hr>
+            <b><h4>Teste 1: Cubo Perfurado</b></h4>
             <p>
 
-              <img src="imagens/tfinal/cubo_buraco_original.png" alt="Snow" style="display:block;width:50%;margin-left: auto;margin-right: auto;">
+              O primeiro teste que será apresentado aqui foi realizado em uma geometria de cubo com uma perfuração. Os vértices desta superfície foram extraídos de modo a obter apenas uma nuvem de pontos. Em seguida, esta nuvem de pontos foi fornecida ao algoritmo para que a superfície fosse reconstruída.
+            </p>
+            <p>
+              A superfície original possui 22684 vértices, e não foi necessário utilizar partição de unidade. Nas imagens abaixo são mostrados, respectivamente:
+              <ul>
+                <li> Superfície original,  </li>
+                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 80 centros, </li>
+                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 500 centros. </li>
+              </ul>
 
               <div class="row">
                 <div class="column">
-                  <img src="imagens/tfinal/cubo_buraco-tipoHRBF-centros80-parts1.png" alt="Snow" style="width:100%">
-                </div>
-                <div class="column">
-                  <img src="imagens/tfinal/cubo_buraco-tipoLSHRBF-centros80-parts1.png" alt="Forest" style="width:100%">
+                  <img src="imagens/tfinal/cubo_buraco_original.png" alt="Cubo com buraco - Original" style='width:92%'>
                 </div>
               </div>
 
               <div class="row">
                 <div class="column">
-                  <img src="imagens/tfinal/cubo_buraco-tipoHRBF-centros500-parts1.png" alt="Snow" style="width:100%">
+                  <img src="imagens/tfinal/cubo_buraco-tipoHRBF-centros80-parts1.png" alt="Cubo com buraco - HRBF 80" style="width:100%">
+                  <span class="caption">HRBF com 80 centros</span>
                 </div>
                 <div class="column">
-                  <img src="imagens/tfinal/cubo_buraco-tipoLSHRBF-centros500-parts1.png" alt="Forest" style="width:100%">
+                  <img src="imagens/tfinal/cubo_buraco-tipoLSHRBF-centros80-parts1.png" alt="Cubo com buraco - LSHRBF 80" style="width:100%">
+                  <span class="caption">LSHRBF com 80 centros</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="column">
+                  <img src="imagens/tfinal/cubo_buraco-tipoHRBF-centros500-parts1.png" alt="Cubo com buraco - HRBF 500"style="width:100%">
+                  <span class="caption">HRBF com 500 centros</span>
+                </div>
+                <div class="column">
+                  <img src="imagens/tfinal/cubo_buraco-tipoLSHRBF-centros500-parts1.png" alt="Cubo com buraco - LSHRBF 500" style="width:100%">
+                  <span class="caption">LSHRBF com 500 centros</span>
+                </div>
+              </div>
+            </p>
+
+
+
+            <hr>
+            <b><h4>Teste 2: Espiral</b></h4>
+            <p>
+
+              Neste segundo teste foi utilizada uma geometria em forma de espiral. A superfície original possui 14800 vértices, e não foi necessário utilizar partição de unidade. Nas imagens abaixo são mostrados, respectivamente:
+              <ul>
+                <li> Superfície original,  </li>
+                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 200 centros, </li>
+                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 1000 centros. </li>
+              </ul>
+
+              <div class="row">
+                <div class="column">
+                  <img src="imagens/tfinal/torcido_original.png" alt="Espiral - Original" style='width:92%'>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="column">
+                  <img src="imagens/tfinal/torcido-tipoHRBF-centros200-parts1.png" alt="Espiral - HRBF 200" style="width:100%">
+                  <span class="caption">HRBF com 200 centros</span>
+                </div>
+                <div class="column">
+                  <img src="imagens/tfinal/torcido-tipoLSHRBF-centros200-parts1.png" alt="Espiral - LSHRBF 200" style="width:96.7%">
+                  <span class="caption">LSHRBF com 200 centros</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="column">
+                  <img src="imagens/tfinal/torcido-tipoHRBF-centros1000-parts1.png" alt="Espiral - HRBF 1000"style="width:100%">
+                  <span class="caption">HRBF com 1000 centros</span>
+                </div>
+                <div class="column">
+                  <img src="imagens/tfinal/torcido-tipoLSHRBF-centros1000-parts1.png" alt="Espiral - LSHRBF 1000" style="width:96.35%">
+                  <span class="caption">LSHRBF com 1000 centros</span>
                 </div>
               </div>
             </p>
             
+            <hr>
+            <b><h4>Teste 3: Armadillo Man</b></h4>
+
           </div>
         </div>
         <!-- /.card -->
