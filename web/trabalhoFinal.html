@@ -88,6 +88,7 @@
             <a href="#particaouni" class="list-group-item">5. Partição de unidade</a>
             <a href="#resultados" class="list-group-item">6. Resultados</a>
             <a href="#conclusao" class="list-group-item">7. Conclusão e código-fonte</a>
+            <a href="#referencias" class="list-group-item">8. Referências</a>
           </div>
         </div>
       </div>
@@ -115,7 +116,7 @@
 
             <p>
 
-              Neste trabalho foi implementado um método para reconstruir superfícies a partir de uma nuvem de pontos. O método utilizado, que foi proposto no artigo [CITAR], busca construir uma função implícita que represente a superfície através de funções de base radial de Hermite (HRBF).
+              Neste trabalho foi implementado um método para reconstruir superfícies a partir de uma nuvem de pontos. O método utilizado, que foi proposto no artigo [1], busca construir uma função implícita que represente a superfície através de funções de base radial de Hermite (HRBF).
             </p>
             <p>
               Busca-se uma função implícita que preserve a forma geral da superfície e também os detalhes locais utilizando um número pequeno de coeficientes. Para este fim, foram propostos (i) uma abordagem de amostragem que seleciona incrementalmente os centros adequados para as funções radiais e (ii) uma construção da função implícita baseada em HRBF com mínimos quadrados.
@@ -246,10 +247,14 @@
                 e os valores em vermelho indicam as dimensões de cada bloco.
               </p>
 
-              <p>
+              <!-- <p>
                 Note que a matriz deste sistema linear possui $(4n + N)$ linhas e colunas. Para uma descrição mais detalhada dos blocos matriciais na equação \eqref{Eq10}, clique aqui.
+              </p> -->
+              
+              <p>
+                Note que a matriz deste sistema linear possui $(4n + N)$ linhas e colunas.
               </p>
-            
+
           </div>
         </div>
         <!-- /.card -->
@@ -261,7 +266,7 @@
           <div class="card-body">
 
             <p>
-              Em [CITAR] é proposta também uma modificação da função interpoladora apresentada na seção 2. Na interpolação HRBF, uma função foi construída utilizando todo o conjunto de pontos $\mathcal P$ como centros. A nova proposta é escolher apenas uma quantidade $L$ de pontos dentro de $\mathcal P$ que serão utilizados como centros para as funções de base radial. Portanto, para construir esta função são necessários três conjuntos de entrada: 
+              Em [1] é proposta também uma modificação da função interpoladora apresentada na seção 2. Na interpolação HRBF, uma função foi construída utilizando todo o conjunto de pontos $\mathcal P$ como centros. A nova proposta é escolher apenas uma quantidade $L$ de pontos dentro de $\mathcal P$ que serão utilizados como centros para as funções de base radial. Portanto, para construir esta função são necessários três conjuntos de entrada: 
               <ul>
                 <li> $\mathcal P = \left \{ \textbf{x}_{i} \right \}_{i=1}^{n} \subset \mathbb{R}^{3}$, </li>
                 <li> ${\cal N} =  \left \{\textbf{n}_{i}\right\}_{i=1}^{n} \subset \mathbb{R}^{3}$, </li>
@@ -325,11 +330,11 @@
           <div class="card-body">
 
             <p>
-              Nas seções anteriores foi explicado como as funções implícitas serão geradas a partir de um conjunto selecionado de pontos centrais. Porém, caso a nuvem de pontos seja muito grande, é inviável que todo o conjunto seja usado como centros. Dessa forma, vamos agora explicar o algoritmo proposto por [CITAR] para selecionar alguns centros dentro da nuvem de pontos.
+              Nas seções anteriores foi explicado como as funções implícitas serão geradas a partir de um conjunto selecionado de pontos centrais. Porém, caso a nuvem de pontos seja muito grande, é inviável que todo o conjunto seja usado como centros. Dessa forma, vamos agora explicar o algoritmo proposto por [1] para selecionar alguns centros dentro da nuvem de pontos.
             </p>
 
             <p>
-              A escolha de centros proposta em [CITAR] é baseada em um algoritmo guloso que favorece pontos que maximizem não apenas o resíduo da função implícita, mas também a diferença no vetor gradiente. Isto permite que a distribuição de centros concentre-se em característica locais da interface, de modo a reconstruir detalhes finos com mais precisão.
+              A escolha de centros proposta em [1] é baseada em um algoritmo guloso que favorece pontos que maximizem não apenas o resíduo da função implícita, mas também a diferença no vetor gradiente. Isto permite que a distribuição de centros concentre-se em característica locais da interface, de modo a reconstruir detalhes finos com mais precisão.
             </p>
 
 
@@ -375,7 +380,7 @@
           <div class="card-body">
 
             <p>
-              Para nuvens de pontos muito grandes, a matriz do sistema linear visto anteriormente pode se tornar extramamente grande, e armazená-la em memória passa a ser inviável. Uma solução deste problema, é utilizar a técnica de partição de unidade, descrita em [CITAR]. Esta técnica também foi implementada neste projeto.
+              Para nuvens de pontos muito grandes, a matriz do sistema linear visto anteriormente pode se tornar extramamente grande, e armazená-la em memória passa a ser inviável. Uma solução deste problema, é utilizar a técnica de partição de unidade, descrita em [2]. Esta técnica também foi implementada neste projeto.
             </p>
 
             <p>
@@ -406,7 +411,7 @@
               \begin{equation}
                   w_{i}\left(\textbf{x} \right ) = \dfrac{W_{i}\left(\textbf{x} \right )}{\sum_{j=1}^{M} W_{j}\left(\textbf{x}\right)},
               \end{equation}
-              em que $W_i$ são funções com suporte compacto na célula $i$. Utilizamos aqui, uma função proposta em [CITAR], definida por
+              em que $W_i$ são funções com suporte compacto na célula $i$. Utilizamos aqui uma função mostrada em [2] definida por
               \begin{equation}
                   W_{i}\left(\textbf{x}\right) = V \circ D_{i}\left(\textbf{x} \right ),
               \end{equation}
@@ -473,6 +478,7 @@
               <div class="row">
                 <div class="column">
                   <img src="imagens/tfinal/cubo_buraco_original.png" alt="Cubo com buraco - Original" style='width:92%'>
+                  <span class="caption">Superfície original</span>
                 </div>
               </div>
 
@@ -515,6 +521,7 @@
               <div class="row">
                 <div class="column">
                   <img src="imagens/tfinal/torcido_original.png" alt="Espiral - Original" style='width:92%'>
+                  <span class="caption">Superfície original</span>
                 </div>
               </div>
 
@@ -543,6 +550,46 @@
             
             <hr>
             <b><h4>Teste 3: Armadillo Man</b></h4>
+            <p>
+
+              Neste último teste foi utilizada a superfície Armadillo Man de Stanford. A superfície original possui 106292 vértices. Nas imagens abaixo são mostrados, respectivamente:
+              <ul>
+                <li> Superfície original,  </li>
+                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 30 centros por partição. O domínio é particionado em um grid $3 \times 3 \times 3$, </li>
+                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 100 centros por partição. O domínio é particionado em um grid $10 \times 10 \times 10$, </li>
+              </ul>
+
+              <div class="row">
+                <div class="column">
+                  <img src="imagens/tfinal/armadillo_original.png" alt="Armadillo - Original" style='width:92%'>
+                  <span class="caption">Superfície original</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="column">
+                  <img src="imagens/tfinal/armadillo-tipoHRBF-centros30-parts3.png" alt="Armadillo - HRBF 30" style="width:100%">
+                  <span class="caption">HRBF com 30 centros por partição</span>
+                </div>
+                <div class="column">
+                  <img src="imagens/tfinal/armadillo-tipoLSHRBF-centros30-parts3.png" alt="Armadillo - LSHRBF 30" style="width:96.7%">
+                  <span class="caption">LSHRBF com 30 centros por partição</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="column">
+                  <img src="imagens/tfinal/armadillo-tipoHRBF-centros100-parts10.png" alt="Armadillo - HRBF 100"style="width:100%">
+                  <span class="caption">HRBF com 100 centros por partição</span>
+                </div>
+                <div class="column">
+                  <img src="imagens/tfinal/armadillo-tipoLSHRBF-centros100-parts10.png" alt="Armadillo - LSHRBF 100" style="width:100.0%">
+                  <span class="caption">LSHRBF com 100 centros por partição</span>
+                </div>
+              </div>
+            </p>
+
+
 
           </div>
         </div>
@@ -554,7 +601,47 @@
           </div>
           <div class="card-body">
 
-              Ainda não fiz.
+            <p>
+              Pelos resultados apresentados, foi possível notar que a estratégia LSHRBF é capaz de criar superfícies visualmente melhores do que a técnica HRBF padrão. Isto é observado, em especial, quando utiliza-se uma quantidade pequena de centros na construção da função interpoladora. 
+            </p>
+
+            <p>
+              O código-fonte deste trabalho pode ser acessado <a href="https://github.com/hugo-franca/GeracaoDeMalhas-2019/tree/master/TrabalhoFinal"> clicando aqui.</a>
+            </p>
+
+            <p>
+              Foi desenvolvido um aplicativo em Matlab com interface gráfica. Para executá-lo, basta rodar o arquivo <b>app_main</b> no matlab. Esta versão com interface gráfica foi testada apenas no MATLAB R2018a. Talvez as funcionalidades gráficas não estejam presentes em versões mais antigas.
+            </p>
+
+            <p>
+              Para utilizar o código sem interface gráfica, basta rodar o arquivo <b>main.m</b> no Matlab. Logo no ínicio deste script é possível escolher: o nome do arquivo que contem a nuvem de pontos, o tipo de função interpoladora, o número de partições, a quantidade de centros desejada e a dimensão do grid utilizada na reconstrução da superfície.
+            </p>
+
+            <p>
+              Ambas as versões acima recebem como entrada uma nuvem de pontos que deve estar armazenada em um arquivo Matlab (<b>.mat</b>). Este arquivo deve conter uma matriz chamada $P$ e outra chamada $N$ que contêm, respectivamente, as coordenadas dos pontos da nuvem e os vetores normais em cada ponto. Desta forma, cada uma desta matrizes devem possuem $n$ linhas por 3 colunas.
+            </p>
+
+
+            
+          </div>
+        </div>
+        <!-- /.card -->
+
+
+        <div id='referencias' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>8. Referências </h3></b>
+          </div>
+          <div class="card-body">
+
+            <p>
+              [1] H. C. Batagelo, e J. P. Gois. Least-Squares Hermite Radial Basis Function Implicits with Adaptive Sampling. Graphics Interface Conference, 2013.
+            </p>
+
+            <p>
+              [2] I. Tobor, P. Reuter, e C. Schlick. Efficient Reconstruction of Large Scattered Geometric Datasets using the Partition of Unity and Radial Basis Functions. In WSCG'04, pages 467-474, 2004.
+            </p>
+
             
           </div>
         </div>
