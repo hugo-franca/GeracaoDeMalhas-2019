@@ -30,7 +30,7 @@ My = Mx;
 Mz = Mx;
 
 % Quantidade de centros por particao
-N_parts = 200;
+N_parts = 50;
 
 % Dimensao do grid pra avaliar a funcao no final e reconstruir a superficie
 dim_grid = 40;
