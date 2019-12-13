@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script> -->
+
+
+<html lang="en">
+
+
+
+<head>
+
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Hugo França - Geração de Malhas 2019</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/shop-item.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    });
+
+    MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "AMS"} } });
+  </script>
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Geração de Malhas 2019</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="trabalho1.html">Trabalho 1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trabalho2.html">Trabalho 2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trabalho3.html">Trabalho 3</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="trabalho4.html">Trabalho 4</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trabalho5.html">Trabalho 5</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="trabalhoFinal.html">Trabalho Final</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-lg-3">
+        <div class='sticky-top'>
+          <h1 class="my-4">Trabalho Final</h1>
+          <div class="list-group">
+            <a href="#matrizesHRBF" class="list-group-item">1. Matrizes HRBF</a>
+          </div>
+        </div>
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9">
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <h1 class="card-title text-center">Trabalho Final</h1>
+            <h2 class='text-center'>Funções implícitas de base radial de Hermite com mínimos quadrados e amostragem adaptativa</h2>
+            <div class='nomes' >
+              Alunos: Hugo França e Ana Maria Lemes <br>
+              Professores: Afonso Paiva e Luis Gustavo Nonato
+            </div>
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div id='matrizesHRBF' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>1. Apêndice: Matrizes HRBF</h3></b>
+          </div>
+          <div class="card-body">
+
+          <p>
+                Foi visto na página principal deste relatório que o seguinte sistema deve ser resolvido para encontrar os coeficientes da função interpoladora:
+                \begin{eqnarray}
+                 & \sum_{j=1}^{n}\begin{Bmatrix}
+                \alpha_{j}\psi\left(\textbf{x}_{i} - \textbf{x}_{j} \right) - \left\langle  \beta_{j},\nabla\psi \left(\textbf{x}_{i} - \textbf{x}_{j} \right) \right \rangle
+                \end{Bmatrix} +  \sum_{j=1}^{N}\lambda_{j}p_{j}\left(\textbf{x}_i\right) = 0, \quad i = 1, \ldots, n,
+                \label{EqHRBF1}\\
+                 & \sum_{j=1}^{n}\begin{Bmatrix}
+                \alpha_{j}\nabla\psi\left(\textbf{x}_{i} -\textbf{x}_{j} \right) - \text{H}\psi\left(\textbf{x}_{i} - \textbf{x}_{j} \right)\beta_{j}
+                \end{Bmatrix} +  \sum_{j=1}^{N}\lambda_{j}\nabla p_{j}\left(\textbf{x}_i\right) =\textbf{n}_{i}, \quad i = 1, \ldots, n,
+                \label{EqHRBF2}
+                \\
+                & \sum_{j=1}^{n}\begin{Bmatrix}
+                \alpha_{j}p_{k}\left(\textbf{x}_{j} \right) - \left\langle  \beta_{j},\nabla p_{k} \left(\textbf{x}_{j} \right) \right \rangle
+                \end{Bmatrix}=0, \quad k = 1,\ldots,N,
+                \label{EqHRBF3}
+                \end{eqnarray}
+                em que $\text{H}$ é o operador Hessiano. 
+          </p>
+
+          <p>
+                Vimos também que este sistema pode ser escrito em uma forma matricial por blocos como:
+                \begin{equation}
+                \overset{
+                  \begin{array}{lrr}
+                  \hspace{6.0mm} {\color{red}n} & \hspace{4.5mm} \color{red}{3n} & \hspace{4.5mm}{\color{red}N}
+                  \end{array}
+                }
+                {
+                  \begin{array}{r}
+                  {\scriptsize \color{red}{n}} \\ {\scriptsize \color{red}{3n}} \\ {\scriptsize \color{red}{N}}
+                  \end{array}
+                  \begin{bmatrix}
+                  \textbf{A} &     \textbf{-D}  & \textbf{P} \\ 
+                  \textbf{D}^{T} & \textbf{G}  & \textbf{P}_{G} \\ 
+                  \textbf{A}_{P} & \textbf{G}_{P}  & 0
+                  \end{bmatrix}
+                }
+                \begin{bmatrix}
+                \alpha\\ 
+                \beta\\ 
+                \lambda
+                \end{bmatrix} = 
+                \begin{bmatrix}
+                \textbf{0}\\ 
+                \textbf{n}\\ 
+                \textbf{0}
+                \end{bmatrix}.
+                \label{Eq10}
+                \end{equation}
+                em que
+                \begin{split}
+                  & \alpha = \left [ \alpha_{1} \quad \alpha_{2} \quad \alpha_{3} \dots \alpha_{n}\right ]^{T} \in \mathbb{R}^{n}, \\
+                  & \beta = \left [ \beta_{1} \quad \beta_{2} \quad \beta_{3} \dots \beta_{n}\right ] = 
+                \left [ \beta_{1}^{x} \quad \beta_{1}^{y} \quad \beta_{1}^{z} \quad \beta_{2}^{x} \quad \beta_{2}^{y} \quad \beta_{2}^{z} \quad \dots \quad \beta_{n}^{x} \quad \beta_{n}^{y} \quad \beta_{n}^{z}\right ] 
+                 \in \mathbb{R}^{3n}, \\
+                  & \lambda = \left [ \lambda_{1} \quad \lambda_{2} \quad \lambda_{3} \quad \dots \quad \lambda_{n}\right ] \in \mathbb{R}^n,
+                \end{split}
+                e os valores em vermelho indicam as dimensões de cada bloco.
+            </p>
+
+          <p>
+            Abaixo são descritos com mais detalhes a forma de cada um dos blocos que compõem a matriz geral do sistema \eqref{Eq10}.
+          </p>
+
+          \begin{equation}
+            \textbf{A} = \left [ \textbf{A}_{ij} \right ]_{n\times n},  \quad \text{com} \quad \textbf{A}_{ij} = \psi_{ij}, \quad \quad i,j = 1,2,\cdots,n,
+          \end{equation}
+          em que $\psi_{i, j} = \psi\left(\textbf{x}_{i} - \textbf{x}_{j}\right)$.
+
+          \begin{equation}
+          \textbf{D}=\begin{bmatrix}
+          \dfrac{\partial \psi_{11}}{\partial x} & \dfrac{\partial \psi_{11}}{\partial y} &  \dfrac{\partial \psi_{11}}{\partial z} & 
+          \dfrac{\partial \psi_{12}}{\partial x} & \dfrac{\partial \psi_{12}}{\partial y} &  \dfrac{\partial \psi_{12}}{\partial z} &
+          \cdots  & \dfrac{\partial \psi_{1n}}{\partial x} & \dfrac{\partial \psi_{1n}}{\partial y} &  \dfrac{\partial \psi_{1n}}{\partial z} \\ 
+
+          \dfrac{\partial \psi_{21}}{\partial x} & \dfrac{\partial \psi_{21}}{\partial y} &  \dfrac{\partial \psi_{21}}{\partial z} & 
+          \dfrac{\partial \psi_{22}}{\partial x} & \dfrac{\partial \psi_{22}}{\partial y} &  \dfrac{\partial \psi_{22}}{\partial z} &
+          \cdots  & \dfrac{\partial \psi_{2n}}{\partial x} & \dfrac{\partial \psi_{2n}}{\partial y} &  \dfrac{\partial \psi_{2n}}{\partial z} \\ 
+
+          \vdots & \vdots &  \vdots & \vdots & \vdots & \vdots & \cdots &  \vdots & \vdots\\
+
+          \dfrac{\partial \psi_{n1}}{\partial x} & \dfrac{\partial \psi_{n1}}{\partial y} &  \dfrac{\partial \psi_{n1}}{\partial z} & 
+          \dfrac{\partial \psi_{n2}}{\partial x} & \dfrac{\partial \psi_{n2}}{\partial y} &  \dfrac{\partial \psi_{n2}}{\partial z} &
+          \cdots  & \dfrac{\partial \psi_{nn}}{\partial x} & \dfrac{\partial \psi_{nn}}{\partial y} &  \dfrac{\partial \psi_{nn}}{\partial z}
+          \end{bmatrix}_{n\times 3n}
+          \end{equation}
+
+          \begin{equation}
+          \textbf{G} = \begin{bmatrix}
+          \textbf{H}\psi_{11} & 
+          \textbf{H}\psi_{12} & \cdots & \textbf{H}\psi_{1n} \\ 
+          \textbf{H}\psi_{21} & 
+          \textbf{H}\psi_{22} & \cdots & \textbf{H}\psi_{2n} \\ 
+          \vdots  & \vdots & \vdots & \ddots  \\
+          \textbf{H}\psi_{n1} & 
+          \textbf{H}\psi_{n2} & \cdots & \textbf{H}\psi_{nn} 
+          \end{bmatrix}_{3n\times 3n}
+          \end{equation}
+
+          \begin{equation}
+          \textbf{P} = \begin{bmatrix}
+          p_{1}(\textbf{x}_{1}) & 
+          p_{2}(\textbf{x}_{1})  & \cdots & p_{N}(\textbf{x}_{1})  \\ 
+          p_{1}(\textbf{x}_{2})  & 
+          p_{2}(\textbf{x}_{2})  & \cdots & p_{N}(\textbf{x}_{2})  \\ 
+          \vdots  & \vdots & \vdots& \ddots \\
+          p_{1}(\textbf{x}_{n})  & 
+          p_{2}(\textbf{x}_{n})  & \cdots & p_{N}(\textbf{x}_{n})  \end{bmatrix}_{n\times N}
+          \end{equation}
+
+          \begin{equation}
+              \textbf{P}_{G}=\begin{bmatrix}
+          \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial x} & \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial x} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial x}\\ 
+          \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial y} & \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial y} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial y}\\ 
+          \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial z} & \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial z} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial z}\\ 
+          \vdots & \vdots  & \ddots  & \vdots \\
+          \dfrac{\partial p_{1}(\textbf{x}_{n})}{\partial x} & \dfrac{\partial p_{2}(\textbf{x}_{n})}{\partial x} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial x}\\ 
+          \dfrac{\partial p_{1}(\textbf{x}_{n})}{\partial y} & \dfrac{\partial p_{2}(\textbf{x}_{n})}{\partial y} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial y}\\
+          \dfrac{\partial p_{1}(\textbf{x}_{n})}{\partial z} & \dfrac{\partial p_{2}(\textbf{x}_{n})}{\partial z} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial z}\\
+          \end{bmatrix}_{3n\times N}
+          \end{equation}
+
+          \begin{equation}
+              \textbf{A}_{P} = \begin{bmatrix}
+          p_{1}(\textbf{x}_{1}) & 
+          p_{1}(\textbf{x}_{2})  & \cdots & p_{1}(\textbf{x}_{n})  \\ 
+          p_{2}(\textbf{x}_{1})  & 
+          p_{2}(\textbf{x}_{2})  & \cdots & p_{2}(\textbf{x}_{n})  \\ 
+          \vdots  & \vdots & \vdots& \ddots \\
+          p_{N}(\textbf{x}_{1})  & 
+          p_{N}(\textbf{x}_{2})  & \cdots & p_{N}(\textbf{x}_{n})  \end{bmatrix}_{N\times n}
+          \end{equation}
+
+          \begin{equation}
+          \scriptsize
+              \textbf{G}_{P}=\begin{bmatrix}
+          \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial x} & \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial y} &  \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial z} & 
+          \dfrac{\partial p_{1}(\textbf{x}_{2})}{\partial x} & \dfrac{\partial p_{1}(\textbf{x}_{2})}{\partial y} &  \dfrac{\partial p_{1}(\textbf{x}_{2})}{\partial z} &
+          \cdots  & \dfrac{\partial p_{1}(\textbf{x}_{n})}{\partial x} & \dfrac{\partial p_{1}(\textbf{x}_{n})}{\partial y} &  \dfrac{\partial p_{n}(\textbf{x}_{n})}{\partial z} \\ 
+          \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial x} & \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial y} &  \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial z} & 
+          \dfrac{\partial p_{2}(\textbf{x}_{2})}{\partial x} & \dfrac{\partial p_{2}(\textbf{x}_{2})}{\partial y} &  \dfrac{\partial p_{2}(\textbf{x}_{2})}{\partial z} & 
+          \cdots  & \dfrac{\partial p_{2}(\textbf{x}_{n})}{\partial x} & \dfrac{\partial p_{2}(\textbf{x}_{n})}{\partial y} &  \dfrac{\partial P_{2}(x_{n})}{\partial z}\\
+          \vdots & \vdots &  \vdots & \vdots & \vdots & \vdots & \cdots &  \vdots & \vdots\\
+          \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial x} & \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial y} &  \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial z} & 
+          \dfrac{\partial p_{N}(\textbf{x}_{2})}{\partial x} & \dfrac{\partial p_{N}(\textbf{x}_{2})}{\partial y} &  \dfrac{\partial p_{N}(\textbf{x}_{2})}{\partial z} & 
+          \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial x} & \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial y} &  \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial z}
+          \end{bmatrix}_{N\times 3n}
+          \end{equation}
+          </div>
+        </div>
+        <!-- /.card -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+
+
+
+  </div>
+  <!-- /.container -->
+
+  <!-- <br> -->
+  <!-- <br> -->
+  <!-- Footer -->
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom"> -->
+    <!-- <div class="container"> -->
+      <!-- <p class="m-0 text-center text-white">Hugo França, 2019</p> -->
+    <!-- </div> -->
+    <!-- /.container -->
+  <!-- </nav> -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
