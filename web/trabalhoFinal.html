@@ -83,12 +83,13 @@
           <div class="list-group">
             <a href="#introducao" class="list-group-item">1. Introdução</a>
             <a href="#hrbf" class="list-group-item">2. Funções HRBF</a>
-            <a href="#lshrbf" class="list-group-item">3. Funções LSHRBF</a>
+            <a href="#lshrbf" class="list-group-item">3. Funções LS-HRBF</a>
             <a href="#amostragem" class="list-group-item">4. Amostragem adaptativa</a>
             <a href="#particaouni" class="list-group-item">5. Partição de unidade</a>
-            <a href="#resultados" class="list-group-item">6. Resultados</a>
-            <a href="#conclusao" class="list-group-item">7. Conclusão e código-fonte</a>
-            <a href="#referencias" class="list-group-item">8. Referências</a>
+            <a href="#folhasfalsas" class="list-group-item">6. Remoção de folhas falsas</a>
+            <a href="#resultados" class="list-group-item">7. Resultados</a>
+            <a href="#conclusao" class="list-group-item">8. Conclusão e código-fonte</a>
+            <a href="#referencias" class="list-group-item">9. Referências</a>
           </div>
         </div>
       </div>
@@ -101,7 +102,7 @@
             <h1 class="card-title text-center">Trabalho Final</h1>
             <h2 class='text-center'>Funções implícitas de base radial de Hermite com mínimos quadrados e amostragem adaptativa</h2>
             <div class='nomes' >
-              Alunos: Hugo França e Ana Lemes <br>
+              Alunos: Hugo França e Ana Maria Lemes <br>
               Professores: Afonso Paiva e Luis Gustavo Nonato
             </div>
           </div>
@@ -316,7 +317,7 @@
                 \label{EqMatricialLSHRBF}
                 \end{equation}
 
-                Observe que o sistema \eqref{EqMatricialLSHRBF} possui mais linhas do que colunas, de modo que, em geral, ele não possui solução. Desta forma, iremos apenas encontrar a melhor solução possível no sentido de mínimos quadrados. Devido a isto, a função interpoladora gerada por este método será chamada de função <i>Least-Squares</i> HRBF (LSHRBF).
+                Observe que o sistema \eqref{EqMatricialLSHRBF} possui mais linhas do que colunas, de modo que, em geral, ele não possui solução. Desta forma, iremos apenas encontrar a melhor solução possível no sentido de mínimos quadrados. Devido a isto, a função interpoladora gerada por este método será chamada de função <i>Least-Squares</i> HRBF (LS-HRBF).
             </p>
             
           </div>
@@ -358,7 +359,7 @@
                   <ul>
                     <li> $\textbf{x}$ é um ponto que pertence a nuvem $\mathcal P$, </li>
                     <li> $\textbf{n}$ é o vetor normal associado ao ponto $\textbf{x}$,</li>
-                    <li> $f_{i-1}$ é uma função interpoladora construída usando o conjunto $\{C_{i-1}\}$ como centros. Note que esta função pode ser tanto uma HRBF implícita (seção 2), quanto LSHRBF (seção 3).</li>
+                    <li> $f_{i-1}$ é uma função interpoladora construída usando o conjunto $\{C_{i-1}\}$ como centros. Note que esta função pode ser tanto uma HRBF implícita (seção 2), quanto LS-HRBF (seção 3).</li>
                     <li> $\kappa_1$ e $\kappa_2$ são hiperparâmetros a serem escolhidos. O artigo de referência sugere $\kappa_2 = 0.5$ e $\kappa_1 = 100r^{-1}$, em que $r$ é aproximadente o diâmetro da menor esfera que contém $\mathcal P$.</li>
                   </ul>
                 </li>
@@ -380,7 +381,7 @@
           <div class="card-body">
 
             <p>
-              Para nuvens de pontos muito grandes, a matriz do sistema linear visto anteriormente pode se tornar extramamente grande, e armazená-la em memória passa a ser inviável. Uma solução deste problema, é utilizar a técnica de partição de unidade, descrita em [2]. Esta técnica também foi implementada neste projeto.
+              Para nuvens de pontos muito grandes, a matriz do sistema linear visto anteriormente pode se tornar extremamente grande, e armazená-la em memória passa a ser inviável. Uma solução deste problema, é utilizar a técnica de partição de unidade, descrita em [2]. Esta técnica também foi implementada neste projeto.
             </p>
 
             <p>
@@ -429,9 +430,38 @@
         </div>
         <!-- /.card -->
 
+
+        <div id='folhasfalsas' class="card card-outline-secondary my-4">
+          <div class="card-header">
+            <b><h3>6. Remoção de folhas falsas </h3></b>
+          </div>
+          <div class="card-body">
+
+            <p>
+            	Como será mostrado nos resultados mais adiante, a técnica LS-HRBF em alguns casos tem uma tendência de gerar algunas folhas falsas de nível zero ao redor da superfície. Isto é, ela representa bem a superfície, porém, em pontos mais distantes, algumas folhas falsas podem surgir.
+            </p>
+            <p>
+             	Para resolver este problema, os autores em [1] sugerem que sejam inseridos pontos fantasmas em regiões do domínio que estejam muito vazias. Seguindo esta ideia, novos pontos são inseridos em nosso algoritmo da seguinte forma:
+             	<ol>
+             		<li> Escolhe-se um inteiro $N$ e o domínio é dividido em um grid regular $N \times N \times N$, </li>
+             		<li> Todas as células deste grid que não possuirem nenhum ponto dentro de si, receberão um novo ponto,</li>
+             		<li> Este ponto é inserido no centro da célula e recebe como vetor normal, o mesmo vetor do ponto da nuvem que esteja mais próximo a ele.</li>
+
+             	</ol>
+
+            </p>
+
+            <p>
+            	É importante frisar que os pontos fantasmas são adicionamos apenas após a seleção de centros ser feita. Desta forma, estes pontos nunca serão usados como centros, eles apenas servem como restrições adicionais no sistema linear. Estas restrições forçam que o gradiente de $f$ tenha sempre o mesmo sentido quando se afasta da superfície, de modo que a função nao muda de sinal.
+            </p>
+          </div>
+        </div>
+        <!-- /.card -->
+
+
         <div id='resultados' class="card card-outline-secondary my-4">
           <div class="card-header">
-            <b><h3>6. Resultados </h3></b>
+            <b><h3>7. Resultados </h3></b>
           </div>
           <div class="card-body">
 
@@ -462,45 +492,86 @@
             </p>
 
             <hr>
-            <b><h4>Teste 1: Cubo Perfurado</b></h4>
+            <b><h4>Teste 1: Eliminação de folhas falsas</b></h4>
+            <p>
+            	Neste teste inicial, iremos ilustrar a necessidade de se eliminar as folhas falsas quando se utiliza a técnica LS-HRBF. Para realizar este, utilizamos uma superfície de referência com o formato de uma vaca (<a href="https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/">fonte</a>). Os vértices e normais desta superfície foram extraídos de modo a obter apenas uma nuvem de pontos. O algoritmo implementado foi utilizado nesta nuvem e a superfície resultante analisada.
+            </p>
+
+
+            <p>
+            	A superfície original possui 22684 vértices, e não foi necessário utilizar partição de unidade. Nas imagens abaixo são mostrados, respectivamente:
+              <ul>
+                <li> Superfície original,  </li>
+                <li> Superfícies reconstruídas pelos métodos HRBF e LS-HRBF com 30 centros e sem eliminação de folhas falsas, </li>
+                <li> Superfícies reconstruída pelos método LS-HRBF com 30 centros e eliminação de folhas falsas. A eliminação foi feita com um grid $5\times 5 \times 5$.</li>
+              </ul>
+
+              	<div class="row">
+	                <div class="column">
+	                  <img src="imagens/tfinal/spot_original_anim.gif" alt="Vaca - Superfície original" style="width:100%">
+	                  <span class="caption">Superfície original.</span>
+	                </div>
+              	</div>
+
+            	<div class="row">
+                <div class="column">
+                  <img src="imagens/tfinal/spot_hrbf_anim.gif" alt="Vaca - HRBF 30" style="width:100%">
+                  <span class="caption">HRBF com 30 centros.</span>
+                </div>
+                <div class="column">
+                  <img src="imagens/tfinal/spot_LSHRBF_comfolhas_anim.gif" alt="Vaca - LSHRBF 30 com folhas falsas" style="width:100%">
+                  <span class="caption">LS-HRBF com 30 centros e sem correção de folhas falsas.</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="column">
+                  <img src="imagens/tfinal/spot_LSHRBF_semfolhas_anim.gif" alt="Vaca - LSHRBF 30 sem folhas falsas" style='width:100%'>
+                  <span class="caption">LS-HRBF com 30 centros e correção de folhas falsas.</span>
+                </div>
+              </div>
+            </p>
+
+            <hr>
+            <b><h4>Teste 2: Cubo Perfurado</b></h4>
             <p>
 
-              O primeiro teste que será apresentado aqui foi realizado em uma geometria de cubo com uma perfuração. Os vértices desta superfície foram extraídos de modo a obter apenas uma nuvem de pontos. Em seguida, esta nuvem de pontos foi fornecida ao algoritmo para que a superfície fosse reconstruída.
+              O primeiro teste que será apresentado foi realizado em uma geometria de cubo com uma perfuração. Os vértices desta superfície foram extraídos de modo a obter apenas uma nuvem de pontos. Em seguida, esta nuvem de pontos foi fornecida ao algoritmo para que a superfície fosse reconstruída.
             </p>
             <p>
               A superfície original possui 22684 vértices, e não foi necessário utilizar partição de unidade. Nas imagens abaixo são mostrados, respectivamente:
               <ul>
                 <li> Superfície original,  </li>
-                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 80 centros, </li>
-                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 500 centros. </li>
+                <li> Superfícies reconstruídas pelos métodos HRBF e LS-HRBF com 80 centros, </li>
+                <li> Superfícies reconstruídas pelos métodos HRBF e LS-HRBF com 500 centros. </li>
               </ul>
 
               <div class="row">
                 <div class="column">
                   <img src="imagens/tfinal/cubo_buraco_original.png" alt="Cubo com buraco - Original" style='width:92%'>
-                  <span class="caption">Superfície original</span>
+                  <span class="caption">Superfície original.</span>
                 </div>
               </div>
 
               <div class="row">
                 <div class="column">
                   <img src="imagens/tfinal/cubo_buraco-tipoHRBF-centros80-parts1.png" alt="Cubo com buraco - HRBF 80" style="width:100%">
-                  <span class="caption">HRBF com 80 centros</span>
+                  <span class="caption">HRBF com 80 centros.</span>
                 </div>
                 <div class="column">
                   <img src="imagens/tfinal/cubo_buraco-tipoLSHRBF-centros80-parts1.png" alt="Cubo com buraco - LSHRBF 80" style="width:100%">
-                  <span class="caption">LSHRBF com 80 centros</span>
+                  <span class="caption">LS-HRBF com 80 centros.</span>
                 </div>
               </div>
 
               <div class="row">
                 <div class="column">
                   <img src="imagens/tfinal/cubo_buraco-tipoHRBF-centros500-parts1.png" alt="Cubo com buraco - HRBF 500"style="width:100%">
-                  <span class="caption">HRBF com 500 centros</span>
+                  <span class="caption">HRBF com 500 centros.</span>
                 </div>
                 <div class="column">
                   <img src="imagens/tfinal/cubo_buraco-tipoLSHRBF-centros500-parts1.png" alt="Cubo com buraco - LSHRBF 500" style="width:100%">
-                  <span class="caption">LSHRBF com 500 centros</span>
+                  <span class="caption">LS-HRBF com 500 centros.</span>
                 </div>
               </div>
             </p>
@@ -508,83 +579,83 @@
 
 
             <hr>
-            <b><h4>Teste 2: Espiral</b></h4>
+            <b><h4>Teste 3: Espiral</b></h4>
             <p>
 
               Neste segundo teste foi utilizada uma geometria em forma de espiral. A superfície original possui 14800 vértices, e não foi necessário utilizar partição de unidade. Nas imagens abaixo são mostrados, respectivamente:
               <ul>
                 <li> Superfície original,  </li>
-                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 200 centros, </li>
-                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 1000 centros. </li>
+                <li> Superfícies reconstruídas pelos métodos HRBF e LS-HRBF com 200 centros, </li>
+                <li> Superfícies reconstruídas pelos métodos HRBF e LS-HRBF com 1000 centros. </li>
               </ul>
 
               <div class="row">
                 <div class="column">
                   <img src="imagens/tfinal/torcido_original.png" alt="Espiral - Original" style='width:92%'>
-                  <span class="caption">Superfície original</span>
+                  <span class="caption">Superfície original.</span>
                 </div>
               </div>
 
               <div class="row">
                 <div class="column">
                   <img src="imagens/tfinal/torcido-tipoHRBF-centros200-parts1.png" alt="Espiral - HRBF 200" style="width:100%">
-                  <span class="caption">HRBF com 200 centros</span>
+                  <span class="caption">HRBF com 200 centros.</span>
                 </div>
                 <div class="column">
                   <img src="imagens/tfinal/torcido-tipoLSHRBF-centros200-parts1.png" alt="Espiral - LSHRBF 200" style="width:96.7%">
-                  <span class="caption">LSHRBF com 200 centros</span>
+                  <span class="caption">LS-HRBF com 200 centros.</span>
                 </div>
               </div>
 
               <div class="row">
                 <div class="column">
                   <img src="imagens/tfinal/torcido-tipoHRBF-centros1000-parts1.png" alt="Espiral - HRBF 1000"style="width:100%">
-                  <span class="caption">HRBF com 1000 centros</span>
+                  <span class="caption">HRBF com 1000 centros.</span>
                 </div>
                 <div class="column">
                   <img src="imagens/tfinal/torcido-tipoLSHRBF-centros1000-parts1.png" alt="Espiral - LSHRBF 1000" style="width:96.35%">
-                  <span class="caption">LSHRBF com 1000 centros</span>
+                  <span class="caption">LS-HRBF com 1000 centros.</span>
                 </div>
               </div>
             </p>
             
             <hr>
-            <b><h4>Teste 3: Armadillo Man</b></h4>
+            <b><h4>Teste 4: Armadillo</b></h4>
             <p>
 
-              Neste último teste foi utilizada a superfície Armadillo Man de Stanford. A superfície original possui 106292 vértices. Nas imagens abaixo são mostrados, respectivamente:
+              Neste último teste foi utilizada a superfície Armadillo. A superfície original possui 106292 vértices. Nas imagens abaixo são mostrados, respectivamente:
               <ul>
                 <li> Superfície original,  </li>
-                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 30 centros por partição. O domínio é particionado em um grid $3 \times 3 \times 3$, </li>
-                <li> Superfícies reconstruídas pelos métodoss HRBF e LSHRBF com 100 centros por partição. O domínio é particionado em um grid $10 \times 10 \times 10$, </li>
+                <li> Superfícies reconstruídas pelos métodos HRBF e LS-HRBF com 30 centros por partição. O domínio é particionado em um grid $3 \times 3 \times 3$, </li>
+                <li> Superfícies reconstruídas pelos métodos HRBF e LS-HRBF com 100 centros por partição. O domínio é particionado em um grid $10 \times 10 \times 10$, </li>
               </ul>
 
               <div class="row">
                 <div class="column">
                   <img src="imagens/tfinal/armadillo_original.png" alt="Armadillo - Original" style='width:92%'>
-                  <span class="caption">Superfície original</span>
+                  <span class="caption">Superfície original.</span>
                 </div>
               </div>
 
               <div class="row">
                 <div class="column">
                   <img src="imagens/tfinal/armadillo-tipoHRBF-centros30-parts3.png" alt="Armadillo - HRBF 30" style="width:100%">
-                  <span class="caption">HRBF com 30 centros por partição</span>
+                  <span class="caption">HRBF com 30 centros por partição.</span>
                 </div>
                 <div class="column">
                   <img src="imagens/tfinal/armadillo-tipoLSHRBF-centros30-parts3.png" alt="Armadillo - LSHRBF 30" style="width:96.7%">
-                  <span class="caption">LSHRBF com 30 centros por partição</span>
+                  <span class="caption">LS-HRBF com 30 centros por partição.</span>
                 </div>
               </div>
 
               <div class="row">
                 <div class="column">
                   <img src="imagens/tfinal/armadillo-tipoHRBF-centros100-parts10.png" alt="Armadillo - HRBF 100"style="width:100%">
-                  <span class="caption">HRBF com 100 centros por partição</span>
+                  <span class="caption">HRBF com 100 centros por partição.</span>
                 </div>
                 <div class="column">
                   <img src="imagens/tfinal/armadillo-tipoLSHRBF-centros100-parts10.png" alt="Armadillo - LSHRBF 100" style="width:100.0%">
-                  <span class="caption">LSHRBF com 100 centros por partição</span>
+                  <span class="caption">LS-HRBF com 100 centros por partição.</span>
                 </div>
               </div>
             </p>
@@ -597,12 +668,12 @@
 
         <div id='conclusao' class="card card-outline-secondary my-4">
           <div class="card-header">
-            <b><h3>7. Conclusão e código-fonte </h3></b>
+            <b><h3>8. Conclusão e código-fonte </h3></b>
           </div>
           <div class="card-body">
 
             <p>
-              Pelos resultados apresentados, foi possível notar que a estratégia LSHRBF é capaz de criar superfícies visualmente melhores do que a técnica HRBF padrão. Isto é observado, em especial, quando utiliza-se uma quantidade pequena de centros na construção da função interpoladora. 
+              Pelos resultados apresentados, foi possível notar que a estratégia LS-HRBF é capaz de criar superfícies visualmente melhores do que a técnica HRBF padrão. Isto é observado, em especial, quando utiliza-se uma quantidade pequena de centros na construção da função interpoladora. 
             </p>
 
             <p>
@@ -630,7 +701,7 @@
 
         <div id='referencias' class="card card-outline-secondary my-4">
           <div class="card-header">
-            <b><h3>8. Referências </h3></b>
+            <b><h3>9. Referências </h3></b>
           </div>
           <div class="card-body">
 

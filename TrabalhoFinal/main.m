@@ -11,33 +11,33 @@ tic
 
 % nome_modelo = 'esfera'
 % nome_modelo = 'bunny'
-% nome_modelo = 'spot'
+nome_modelo = 'spot'
 % nome_modelo = 'torus_ana'
 % nome_modelo = 'cubo_buraco'
 % nome_modelo = 'torcido'
-nome_modelo = 'armadillo'
+% nome_modelo = 'armadillo'
 
 
 
 
 
-tipo_interpolacao = 'HRBF'
-% tipo_interpolacao = 'LSHRBF'
+% tipo_interpolacao = 'HRBF'
+tipo_interpolacao = 'LSHRBF'
 
 % Quantidade de particoes de unidade em cada direcao
-Mx = 3;
+Mx = 1;
 My = Mx;
 Mz = Mx;
 
 % Quantidade de centros por particao
-N_parts = 30;
+N_parts = 200;
 
 % Dimensao do grid pra avaliar a funcao no final e reconstruir a superficie
-dim_grid = 80;
+dim_grid = 40;
 
 % Dimensao do grid fantasma usado para adicionar pontos fantasmas em regioes muito vazias
 % Quanto maior, mais ele remove as folhas falsas no LSHRBF, mas pode dar uma piorada na superficie
-grid_fantasma = 15;
+grid_fantasma = 1;
 
 % ========================================================
 % === Fim da definicao de parametros pelo usuario
@@ -49,6 +49,8 @@ grid_fantasma = 15;
 
 
 load(['modelos/', nome_modelo, '.mat']);
+
+
 
 
 Valores = zeros( size(P, 1), 1 );
