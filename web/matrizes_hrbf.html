@@ -143,7 +143,7 @@
                   \end{array}
                   \begin{bmatrix}
                   \textbf{A} &     \textbf{-D}  & \textbf{P} \\ 
-                  \textbf{D}^{T} & \textbf{G}  & \textbf{P}_{G} \\ 
+                  \textbf{D}_2 & \textbf{-G}  & \textbf{P}_{G} \\ 
                   \textbf{A}_{P} & \textbf{G}_{P}  & 0
                   \end{bmatrix}
                 }
@@ -180,22 +180,41 @@
           em que $\psi_{i, j} = \psi\left(\textbf{x}_{i} - \textbf{x}_{j}\right)$.
 
           \begin{equation}
-          \textbf{D}=\begin{bmatrix}
-          \dfrac{\partial \psi_{11}}{\partial x} & \dfrac{\partial \psi_{11}}{\partial y} &  \dfrac{\partial \psi_{11}}{\partial z} & 
-          \dfrac{\partial \psi_{12}}{\partial x} & \dfrac{\partial \psi_{12}}{\partial y} &  \dfrac{\partial \psi_{12}}{\partial z} &
-          \cdots  & \dfrac{\partial \psi_{1n}}{\partial x} & \dfrac{\partial \psi_{1n}}{\partial y} &  \dfrac{\partial \psi_{1n}}{\partial z} \\ 
-
-          \dfrac{\partial \psi_{21}}{\partial x} & \dfrac{\partial \psi_{21}}{\partial y} &  \dfrac{\partial \psi_{21}}{\partial z} & 
-          \dfrac{\partial \psi_{22}}{\partial x} & \dfrac{\partial \psi_{22}}{\partial y} &  \dfrac{\partial \psi_{22}}{\partial z} &
-          \cdots  & \dfrac{\partial \psi_{2n}}{\partial x} & \dfrac{\partial \psi_{2n}}{\partial y} &  \dfrac{\partial \psi_{2n}}{\partial z} \\ 
-
-          \vdots & \vdots &  \vdots & \vdots & \vdots & \vdots & \cdots &  \vdots & \vdots\\
-
-          \dfrac{\partial \psi_{n1}}{\partial x} & \dfrac{\partial \psi_{n1}}{\partial y} &  \dfrac{\partial \psi_{n1}}{\partial z} & 
-          \dfrac{\partial \psi_{n2}}{\partial x} & \dfrac{\partial \psi_{n2}}{\partial y} &  \dfrac{\partial \psi_{n2}}{\partial z} &
-          \cdots  & \dfrac{\partial \psi_{nn}}{\partial x} & \dfrac{\partial \psi_{nn}}{\partial y} &  \dfrac{\partial \psi_{nn}}{\partial z}
-          \end{bmatrix}_{n\times 3n}
+          \textbf{D}_1=\begin{bmatrix}
+          \nabla\psi_{11} & 
+          \nabla\psi_{12} & \cdots & \nabla\psi_{1n} \\ 
+          \nabla\psi_{21} & 
+          \nabla\psi_{22} & \cdots & \nabla\psi_{2n} \\ 
+          \vdots  & \vdots & \vdots & \ddots  \\
+          \nabla\psi_{n1} & 
+          \nabla\psi_{n2} & \cdots & \nabla\psi_{nn} 
+          \end{bmatrix}_{n\times 3n},
           \end{equation}
+          em que $\nabla\psi_{ij} = \left[\frac{\partial \psi_{ij}}{\partial x} \ \frac{\partial \psi_{ij}}{\partial y} \ \frac{\partial \psi_{ij}}{\partial z}\right]$ é um vetor linha.
+
+          \begin{equation}
+          \textbf{P} = \begin{bmatrix}
+          p_{1}(\textbf{x}_{1}) & 
+          p_{2}(\textbf{x}_{1})  & \cdots & p_{N}(\textbf{x}_{1})  \\ 
+          p_{1}(\textbf{x}_{2})  & 
+          p_{2}(\textbf{x}_{2})  & \cdots & p_{N}(\textbf{x}_{2})  \\ 
+          \vdots  & \vdots & \vdots& \ddots \\
+          p_{1}(\textbf{x}_{n})  & 
+          p_{2}(\textbf{x}_{n})  & \cdots & p_{N}(\textbf{x}_{n})  \end{bmatrix}_{n\times N},
+          \end{equation}
+
+          \begin{equation}
+          \textbf{D}_2=\begin{bmatrix}
+          (\nabla\psi_{11})^T & 
+          (\nabla\psi_{12})^T & \cdots & (\nabla\psi_{1n})^T \\ 
+          (\nabla\psi_{21})^T & 
+          (\nabla\psi_{22})^T & \cdots & (\nabla\psi_{2n})^T \\ 
+          \vdots  & \vdots & \vdots & \ddots  \\
+          (\nabla\psi_{n1})^T & 
+          (\nabla\psi_{n2})^T & \cdots & (\nabla\psi_{nn})^T 
+          \end{bmatrix}_{3n\times n},
+          \end{equation}
+          em que $\nabla\psi_{ij} = \left[\frac{\partial \psi_{ij}}{\partial x} \ \frac{\partial \psi_{ij}}{\partial y} \ \frac{\partial \psi_{ij}}{\partial z}\right]$ é um vetor linha.
 
           \begin{equation}
           \textbf{G} = \begin{bmatrix}
@@ -206,30 +225,19 @@
           \vdots  & \vdots & \vdots & \ddots  \\
           \textbf{H}\psi_{n1} & 
           \textbf{H}\psi_{n2} & \cdots & \textbf{H}\psi_{nn} 
-          \end{bmatrix}_{3n\times 3n}
-          \end{equation}
-
-          \begin{equation}
-          \textbf{P} = \begin{bmatrix}
-          p_{1}(\textbf{x}_{1}) & 
-          p_{2}(\textbf{x}_{1})  & \cdots & p_{N}(\textbf{x}_{1})  \\ 
-          p_{1}(\textbf{x}_{2})  & 
-          p_{2}(\textbf{x}_{2})  & \cdots & p_{N}(\textbf{x}_{2})  \\ 
-          \vdots  & \vdots & \vdots& \ddots \\
-          p_{1}(\textbf{x}_{n})  & 
-          p_{2}(\textbf{x}_{n})  & \cdots & p_{N}(\textbf{x}_{n})  \end{bmatrix}_{n\times N}
+          \end{bmatrix}_{3n\times 3n},
           \end{equation}
 
           \begin{equation}
               \textbf{P}_{G}=\begin{bmatrix}
-          \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial x} & \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial x} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial x}\\ 
-          \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial y} & \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial y} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial y}\\ 
-          \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial z} & \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial z} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial z}\\ 
-          \vdots & \vdots  & \ddots  & \vdots \\
-          \dfrac{\partial p_{1}(\textbf{x}_{n})}{\partial x} & \dfrac{\partial p_{2}(\textbf{x}_{n})}{\partial x} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial x}\\ 
-          \dfrac{\partial p_{1}(\textbf{x}_{n})}{\partial y} & \dfrac{\partial p_{2}(\textbf{x}_{n})}{\partial y} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial y}\\
-          \dfrac{\partial p_{1}(\textbf{x}_{n})}{\partial z} & \dfrac{\partial p_{2}(\textbf{x}_{n})}{\partial z} & \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial z}\\
-          \end{bmatrix}_{3n\times N}
+          (\nabla p_1(\textbf{x}_1))^T & 
+          (\nabla p_2(\textbf{x}_1))^T & \cdots & (\nabla p_N(\textbf{x}_1))^T \\ 
+          (\nabla p_1(\textbf{x}_2))^T & 
+          (\nabla p_2(\textbf{x}_2))^T & \cdots & (\nabla p_N(\textbf{x}_2))^T \\ 
+          \vdots  & \vdots & \vdots & \ddots  \\
+          (\nabla p_1(\textbf{x}_n))^T & 
+          (\nabla p_2(\textbf{x}_n))^T & \cdots & (\nabla p_N(\textbf{x}_n))^T
+          \end{bmatrix}_{3n\times N},
           \end{equation}
 
           \begin{equation}
@@ -240,23 +248,19 @@
           p_{2}(\textbf{x}_{2})  & \cdots & p_{2}(\textbf{x}_{n})  \\ 
           \vdots  & \vdots & \vdots& \ddots \\
           p_{N}(\textbf{x}_{1})  & 
-          p_{N}(\textbf{x}_{2})  & \cdots & p_{N}(\textbf{x}_{n})  \end{bmatrix}_{N\times n}
+          p_{N}(\textbf{x}_{2})  & \cdots & p_{N}(\textbf{x}_{n})  \end{bmatrix}_{N\times n},
           \end{equation}
 
           \begin{equation}
-          \scriptsize
-              \textbf{G}_{P}=\begin{bmatrix}
-          \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial x} & \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial y} &  \dfrac{\partial p_{1}(\textbf{x}_{1})}{\partial z} & 
-          \dfrac{\partial p_{1}(\textbf{x}_{2})}{\partial x} & \dfrac{\partial p_{1}(\textbf{x}_{2})}{\partial y} &  \dfrac{\partial p_{1}(\textbf{x}_{2})}{\partial z} &
-          \cdots  & \dfrac{\partial p_{1}(\textbf{x}_{n})}{\partial x} & \dfrac{\partial p_{1}(\textbf{x}_{n})}{\partial y} &  \dfrac{\partial p_{n}(\textbf{x}_{n})}{\partial z} \\ 
-          \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial x} & \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial y} &  \dfrac{\partial p_{2}(\textbf{x}_{1})}{\partial z} & 
-          \dfrac{\partial p_{2}(\textbf{x}_{2})}{\partial x} & \dfrac{\partial p_{2}(\textbf{x}_{2})}{\partial y} &  \dfrac{\partial p_{2}(\textbf{x}_{2})}{\partial z} & 
-          \cdots  & \dfrac{\partial p_{2}(\textbf{x}_{n})}{\partial x} & \dfrac{\partial p_{2}(\textbf{x}_{n})}{\partial y} &  \dfrac{\partial P_{2}(x_{n})}{\partial z}\\
-          \vdots & \vdots &  \vdots & \vdots & \vdots & \vdots & \cdots &  \vdots & \vdots\\
-          \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial x} & \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial y} &  \dfrac{\partial p_{N}(\textbf{x}_{1})}{\partial z} & 
-          \dfrac{\partial p_{N}(\textbf{x}_{2})}{\partial x} & \dfrac{\partial p_{N}(\textbf{x}_{2})}{\partial y} &  \dfrac{\partial p_{N}(\textbf{x}_{2})}{\partial z} & 
-          \cdots  & \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial x} & \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial y} &  \dfrac{\partial p_{N}(\textbf{x}_{n})}{\partial z}
-          \end{bmatrix}_{N\times 3n}
+            \textbf{G}_{P}=\begin{bmatrix}
+            \nabla p_1(\textbf{x}_1) & 
+            \nabla p_1(\textbf{x}_2) & \cdots & \nabla p_1(\textbf{x}_n) \\ 
+            \nabla p_2(\textbf{x}_1) & 
+            \nabla p_2(\textbf{x}_2) & \cdots & \nabla p_2(\textbf{x}_n)) \\ 
+            \vdots  & \vdots & \vdots & \ddots  \\
+            \nabla p_N(\textbf{x}_1) & 
+            \nabla p_N(\textbf{x}_1) & \cdots & \nabla p_N(\textbf{x}_n))
+          \end{bmatrix}_{N\times 3n}.
           \end{equation}
           </div>
         </div>
