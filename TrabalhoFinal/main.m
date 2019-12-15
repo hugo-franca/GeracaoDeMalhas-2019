@@ -33,7 +33,7 @@ Mz = Mx;
 N_parts = 50;
 
 % Dimensao do grid pra avaliar a funcao no final e reconstruir a superficie
-dim_grid = 40;
+dim_grid = 30;
 
 % Dimensao do grid fantasma usado para adicionar pontos fantasmas em regioes muito vazias
 % Quanto maior, mais ele remove as folhas falsas no LSHRBF, mas pode dar uma piorada na superficie

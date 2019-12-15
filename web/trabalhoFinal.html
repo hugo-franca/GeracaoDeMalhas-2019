@@ -137,7 +137,7 @@
               </p>
 
               <p>
-                Desta forma, teremos como entrada um conjunto de pontos $\mathcal P = \left \{ \textbf{x}_{i} \right \}_{i=1}^{n} \subset \mathbb{R}^{3}$, bem como o conjunto com o vetor normal em cada ponto ${\cal N} =  \left \{\textbf{n}_{i}\right\}_{i=1}^{n} \subset \mathbb{R}^{3}$. Refere-se a estes pontos como os <b>centros</b> da HRBF. O irá encontrar uma função $f:\mathbb{R}^{3} \rightarrow \mathbb{R}$ que possui a forma
+                Desta forma, teremos como entrada um conjunto de pontos $\mathcal P = \left \{ \textbf{x}_{i} \right \}_{i=1}^{n} \subset \mathbb{R}^{3}$, bem como o conjunto com o vetor normal em cada ponto ${\cal N} =  \left \{\textbf{n}_{i}\right\}_{i=1}^{n} \subset \mathbb{R}^{3}$. Refere-se a estes pontos como os <b>centros</b> da HRBF. O algoritmo irá encontrar uma função $f:\mathbb{R}^{3} \rightarrow \mathbb{R}$ que possui a forma
                 \begin{equation}
                 f\left(x \right ) = \sum_{j=1}^{n}\begin{Bmatrix}
                 \alpha_{j}\psi\left(\textbf{x} - \textbf{x}_{j} \right) - \left\langle  \beta_{j},\nabla\psi \left(\textbf{x} - \textbf{x}_{j} \right) \right \rangle
@@ -455,7 +455,7 @@
             </p>
 
             <p>
-            	É importante frisar que os pontos fantasmas são adicionamos apenas após a seleção de centros ser feita. Desta forma, estes pontos nunca serão usados como centros, eles apenas servem como restrições adicionais no sistema linear. Estas restrições forçam que o gradiente de $f$ tenha sempre o mesmo sentido quando se afasta da superfície, de modo que a função nao muda de sinal.
+            	É importante destacar que os pontos fantasmas são adicionamos apenas após a seleção de centros ser feita. Desta forma, estes pontos nunca serão usados como centros, eles apenas servem como restrições adicionais no sistema linear LS-HRBF. Estas restrições forçam que o gradiente de $f$ tenha sempre o mesmo sentido quando se afasta da superfície, de modo que a função nao muda de sinal.
             </p>
           </div>
         </div>
@@ -497,12 +497,12 @@
             <hr>
             <b><h4>Teste 1: Eliminação de folhas falsas</b></h4>
             <p>
-            	Neste teste inicial, iremos ilustrar a necessidade de se eliminar as folhas falsas quando se utiliza a técnica LS-HRBF. Para realizar este, utilizamos uma superfície de referência com o formato de uma vaca (<a href="https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/">fonte</a>). Os vértices e normais desta superfície foram extraídos de modo a obter apenas uma nuvem de pontos. O algoritmo implementado foi utilizado nesta nuvem e a superfície resultante analisada.
+            	Neste teste inicial, iremos ilustrar a necessidade de se eliminar as folhas falsas quando se utiliza a técnica LS-HRBF. Para realizar este, utilizamos uma superfície de referência com o formato de um animal (<a href="https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/">fonte</a>). Os vértices e normais desta superfície foram extraídos de modo a obter apenas uma nuvem de pontos. O algoritmo implementado foi utilizado nesta nuvem e a superfície resultante analisada.
             </p>
 
 
             <p>
-            	A superfície original possui 22684 vértices, e não foi necessário utilizar partição de unidade. Nas imagens abaixo são mostrados, respectivamente:
+            	A superfície original possui 2930 vértices, e não foi necessário utilizar partição de unidade. Nas imagens abaixo são mostrados, respectivamente:
               <ul>
                 <li> Superfície original,  </li>
                 <li> Superfícies reconstruídas pelos métodos HRBF e LS-HRBF com 30 centros e sem eliminação de folhas falsas, </li>
@@ -543,7 +543,7 @@
             <b><h4>Teste 2: Cubo Perfurado</b></h4>
             <p>
 
-              O primeiro teste que será apresentado foi realizado em uma geometria de cubo com uma perfuração. Os vértices desta superfície foram extraídos de modo a obter apenas uma nuvem de pontos. Em seguida, esta nuvem de pontos foi fornecida ao algoritmo para que a superfície fosse reconstruída.
+              Este teste foi realizado em uma geometria de cubo com uma perfuração. Os vértices desta superfície foram extraídos de modo a obter apenas uma nuvem de pontos. Em seguida, esta nuvem de pontos foi fornecida ao algoritmo para que a superfície fosse reconstruída.
             </p>
             <p>
               A superfície original possui 22684 vértices, e não foi necessário utilizar partição de unidade. Nas imagens abaixo são mostrados, respectivamente:
@@ -589,7 +589,7 @@
             <b><h4>Teste 3: Espiral</b></h4>
             <p>
 
-              Neste segundo teste foi utilizada uma geometria em forma de espiral. A superfície original possui 14800 vértices, e não foi necessário utilizar partição de unidade. Nas imagens abaixo são mostrados, respectivamente:
+              Neste terceiro teste foi utilizada uma geometria em forma de espiral. A superfície original possui 14800 vértices, e não foi necessário utilizar partição de unidade. Nas imagens abaixo são mostrados, respectivamente:
               <ul>
                 <li> Superfície original,  </li>
                 <li> Superfícies reconstruídas pelos métodos HRBF e LS-HRBF com 200 centros, </li>
@@ -630,7 +630,8 @@
             <b><h4>Teste 4: Armadillo</b></h4>
             <p>
 
-              Neste último teste foi utilizada a superfície Armadillo. A superfície original possui 106292 vértices. Nas imagens abaixo são mostrados, respectivamente:
+            
+              Neste último teste foi utilizada a superfície Armadillo (<a href="https://www.prinmath.com/csci5229/OBJ/index.html">fonte</a>). A superfície original possui 106292 vértices. Nas imagens abaixo são mostrados, respectivamente:
               <ul>
                 <li> Superfície original,  </li>
                 <li> Superfícies reconstruídas pelos métodos HRBF e LS-HRBF com 30 centros por partição. O domínio é particionado em um grid $3 \times 3 \times 3$, </li>
